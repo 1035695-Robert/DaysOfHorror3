@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueDisplay : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class DialogueDisplay : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueComponent;
 
 
-
+    public InputActionReference DialogueAction;
     
     DialogueFiles files;
     public List<DialogueData> scriptData;
@@ -28,12 +30,20 @@ public class DialogueDisplay : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        
-        if(Input.GetKeyDown(KeyCode.Space) && isTalking == true)
+        DialogueAction.action.performed += TextUpdate;
+    }
+
+    private void OnDisable()
+    {
+        DialogueAction.action.performed -= TextUpdate;
+    }
+    private void TextUpdate(InputAction.CallbackContext context)
+    {
+        if (isTalking == true)
         {
-            if(dialogueComponent.text == scriptData[index].dialogueLine)
+            if (dialogueComponent.text == scriptData[index].dialogueLine)
             {
                 NextLine();
             }
@@ -43,6 +53,14 @@ public class DialogueDisplay : MonoBehaviour
                 dialogueComponent.text = scriptData[index].dialogueLine;
             }
         }
+    }
+   
+
+
+    private void Update()
+    {
+        
+        
     }
 
     public void StartDialogue(string fileName)

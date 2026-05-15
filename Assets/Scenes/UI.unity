@@ -258,7 +258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125, y: -120}
+  m_AnchoredPosition: {x: 125.000015, y: -120}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117397101
@@ -552,6 +552,7 @@ GameObject:
   - component: {fileID: 366710318}
   - component: {fileID: 366710317}
   - component: {fileID: 366710316}
+  - component: {fileID: 366710319}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -574,6 +575,7 @@ MonoBehaviour:
   dialogueUI: {fileID: 1259952105}
   speakerComponent: {fileID: 2001658788}
   dialogueComponent: {fileID: 163091065}
+  DialogueAction: {fileID: -8282763380713612750, guid: 40996693aa01f0e4697f06072aa6734e, type: 3}
   scriptData: []
   index: 0
 --- !u!114 &366710317
@@ -603,6 +605,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &366710319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366710315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 40996693aa01f0e4697f06072aa6734e, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: UI
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1079766973
 GameObject:
   m_ObjectHideFlags: 0
