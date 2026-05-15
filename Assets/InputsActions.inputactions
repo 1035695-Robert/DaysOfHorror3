@@ -49,6 +49,17 @@
                     "action": "Dialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82e79bff-8aea-4a51-bbd2-ada260d9ab93",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
