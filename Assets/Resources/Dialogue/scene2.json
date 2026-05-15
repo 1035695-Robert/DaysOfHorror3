@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "speakerName": "Doc",
+      "dialogueLine": "well well well...",
+      "textSpeed": 0.3
+    },
+    {
+      "speakerName": "Doc",
+      "dialogueLine": "Look what we have here",
+      "textSpeed": 0.1
+    }
+  ]
+}
