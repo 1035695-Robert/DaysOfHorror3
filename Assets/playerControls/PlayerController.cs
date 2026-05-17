@@ -55,9 +55,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.MovePosition(rb.position + moveDirection * walkSpeed * Time.fixedDeltaTime);
         }
-        //if(moveDirection.sqrMagnitude > 0.01f)
+        //if (moveDirection.sqrMagnitude > 0.01f)
         //{
-        //    transform.rotation = Quaternion.LookRotation(moveDirection); 
+        //    transform.rotation = Quaternion.LookRotation(moveDirection);
         //}
     }
 

@@ -54,15 +54,6 @@ public class DialogueDisplay : MonoBehaviour
             }
         }
     }
-   
-
-
-    private void Update()
-    {
-        
-        
-    }
-
     public void StartDialogue(string fileName)
     {
         if (isTalking == true)
