@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public InputActionReference sprintHold;
     public InputActionReference sprintToggle;
 
-    public bool isSprintToggleActive = false;
+    public bool isToggleActive = false;
     public bool isSprintHolding = false;
 
     private void Start()
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 moveDirection = new Vector3(directionInput.x, 0, directionInput.y);
-        if (isSprintToggleActive == true || isSprintHolding == true)
+        if (isToggleActive == true || isSprintHolding == true)
         {
             rb.MovePosition(rb.position + moveDirection * sprintSpeed * Time.fixedDeltaTime);
         }
@@ -55,11 +55,16 @@ public class PlayerController : MonoBehaviour
         {
             rb.MovePosition(rb.position + moveDirection * walkSpeed * Time.fixedDeltaTime);
         }
+        //if(moveDirection.sqrMagnitude > 0.01f)
+        //{
+        //    transform.rotation = Quaternion.LookRotation(moveDirection); 
+        //}
     }
 
+    //thi
     private void OnTogglePerformed(InputAction.CallbackContext context)
     {
-        isSprintToggleActive = !isSprintToggleActive;
+        isToggleActive = !isToggleActive;
     }
 
     #region Sprint: Press and Hold
