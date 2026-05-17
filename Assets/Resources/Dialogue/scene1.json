@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "speakerName": "doc",
+      "dialogueLine": "hello there everyone",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "player 1",
+      "dialogueLine": "run away",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "player 2",
+      "dialogueLine": "why is that?",
+      "textSpeed": 0.1
+    }
+  ]
+}
