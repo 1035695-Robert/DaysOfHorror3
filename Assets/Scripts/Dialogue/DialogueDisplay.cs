@@ -16,6 +16,7 @@ public class DialogueDisplay : MonoBehaviour
 
     public InputActionReference DialogueAction;
     
+    PlayerInput playerInput;
     DialogueFiles files;
     public List<DialogueData> scriptData;
 
@@ -26,6 +27,7 @@ public class DialogueDisplay : MonoBehaviour
     private void Start()
     {
         files = GetComponent<DialogueFiles>();
+        playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
         DontDestroyOnLoad(this);
     }
@@ -56,6 +58,7 @@ public class DialogueDisplay : MonoBehaviour
     }
     public void StartDialogue(string fileName)
     {
+        
         if (isTalking == true)
         { return; }
 
@@ -99,6 +102,7 @@ public class DialogueDisplay : MonoBehaviour
         else
         {
             isTalking = false;
+            playerInput.SwitchCurrentActionMap("Player");
              dialogueUI.SetActive(false);
         }
     }

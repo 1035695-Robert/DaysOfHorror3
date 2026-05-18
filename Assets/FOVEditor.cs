@@ -9,7 +9,7 @@ public class FOVEditor : Editor
         PlayerFieldOfView fov = (PlayerFieldOfView)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
-        
+
 
         Vector3 viewAngle01 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
         Vector3 viewAngle02 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angle / 2);
@@ -17,11 +17,13 @@ public class FOVEditor : Editor
         Handles.color = Color.yellow;
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle01 * fov.radius);
         Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngle02 * fov.radius);
-
-        if (fov.canSeeObject)
+        if (fov.targetRef != null)
         {
-            Handles.color = Color.red;
-            Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+            if (fov.canSeeObject)
+            {
+                Handles.color = Color.red;
+                Handles.DrawLine(fov.transform.position, fov.targetRef.transform.position);
+            }
         }
 
     }

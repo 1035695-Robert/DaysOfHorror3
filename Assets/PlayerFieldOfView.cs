@@ -6,33 +6,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerFieldOfView : MonoBehaviour
 {
+    [Header("dialogue Scripts")]
+    public string conversationName;
+
+    [Header("Detection info")]
     public float radius;
     [Range(0, 360)]
     public float angle;
-    DialogueDisplay dialogueDisplay;
+    public bool canSeeObject;
+    [Tooltip("this is only used within editor to draw raycast line towards target object")]
+    public GameObject targetRef;
+    
 
-    public GameObject playerRef;
-
+    [Header("Layer Types")]
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
-    public bool canSeeObject;
-
+    [Header("NPC Interation")]
     public GameObject uiPopUp;
     public TextMeshPro interactText;
     public GameObject dialogueManager;
+    DialogueDisplay dialogueDisplay;
 
-    public PlayerInput playerInput;
+    [Header("Player Inputs")]
+    PlayerInput playerInput;
     public InputActionReference interact;
+
     private void Start()
     {
-
+        playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
         dialogueDisplay = dialogueManager.GetComponent<DialogueDisplay>();
+
         StartCoroutine(FOVRoutine());
     }
     private void OnEnable()
     {
         interact.action.Enable();
+       
     }
     private void OnDisable()
     {
@@ -70,6 +80,7 @@ public class PlayerFieldOfView : MonoBehaviour
 
                 else
                     canSeeObject = false;
+                
             }
             else
                 canSeeObject = false;
@@ -89,9 +100,10 @@ public class PlayerFieldOfView : MonoBehaviour
         {
             if (interact.action.IsPressed())
             {
-                dialogueDisplay.StartDialogue("scene2");
+                playerInput.SwitchCurrentActionMap("UI");
+                dialogueDisplay.StartDialogue(conversationName);
             }
-            yield return wait;
+            yield return null;
 
         }
         uiPopUp.SetActive(false);

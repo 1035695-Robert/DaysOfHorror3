@@ -192,7 +192,7 @@
             "id": "80da220d-44fe-4786-b116-cb0895c3c813",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Confirm",
                     "type": "Button",
                     "id": "e150bd46-7882-4ffc-99b0-13623c789bb4",
                     "expectedControlType": "",
@@ -209,7 +209,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b67ddc54-58e7-4936-9a0a-6b9f748e934e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
