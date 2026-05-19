@@ -156,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   sprintSpeed: 10
-  rotationSpeed: 0
+  rotationSpeed: 10
   move: {fileID: -2532685585990711495, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   sprintHold: {fileID: -5259677108868521601, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   sprintToggle: {fileID: -4889667053840596211, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
