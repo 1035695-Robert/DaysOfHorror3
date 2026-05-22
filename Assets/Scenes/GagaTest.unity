@@ -752,11 +752,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropTimeLenght: 3
   Toss: {fileID: -8483500098983047502, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
---- !u!1 &968600152 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1827835738080554017, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-  m_PrefabInstance: {fileID: 1091244015}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1091244015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -768,30 +763,6 @@ PrefabInstance:
     - target: {fileID: 1827835738080554017, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
       propertyPath: m_Name
       value: player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957856429614023207, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: angle
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957856429614023207, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: uiPopUp
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957856429614023207, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: interactText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957856429614023207, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: dialogueManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2957856429614023207, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: conversationName
-      value: scene2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5576400416265343191, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      propertyPath: rotationSpeed
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6126721103616396751, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
       propertyPath: m_LocalPosition.x
@@ -836,33 +807,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1827835738080554017, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1091244024}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
 --- !u!4 &1091244016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6126721103616396751, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
   m_PrefabInstance: {fileID: 1091244015}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1091244024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968600152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: decab5d186f6a5e49937c9e6150abff5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdArea: {fileID: 1091244016}
-  heldObjectRB: {fileID: 0}
-  pickupRange: 5
-  pickupForce: 150
-  forceAmount: 20
 --- !u!1 &1621784709
 GameObject:
   m_ObjectHideFlags: 0

@@ -58,7 +58,8 @@ public class DialogueDisplay : MonoBehaviour
     }
     public void StartDialogue(string fileName)
     {
-        
+        playerInput.SwitchCurrentActionMap("UI");
+
         if (isTalking == true)
         { return; }
 
