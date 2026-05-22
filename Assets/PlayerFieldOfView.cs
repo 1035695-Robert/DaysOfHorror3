@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class PlayerFieldOfView : MonoBehaviour
     private void Start()
     {
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-        dialogueDisplay = dialogueManager.GetComponent<DialogueDisplay>();
+        //dialogueDisplay = dialogueManager.GetComponent<DialogueDisplay>();
 
         StartCoroutine(FOVRoutine());
     }
@@ -57,11 +58,9 @@ public class PlayerFieldOfView : MonoBehaviour
             FieldOfViewCheck();
         }
     }
-
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
-
 
         if (rangeChecks.Length != 0)
         {
@@ -74,13 +73,11 @@ public class PlayerFieldOfView : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
-                    canSeeObject = true;
-                    StartCoroutine(InteractionUI());
+                    canSeeObject = true;        
+                    StartCoroutine(InteractionUI(target));
                 }
-
                 else
                     canSeeObject = false;
-                
             }
             else
                 canSeeObject = false;
@@ -88,24 +85,30 @@ public class PlayerFieldOfView : MonoBehaviour
         else if (canSeeObject)
             canSeeObject = false;
     }
-    IEnumerator InteractionUI()
+    IEnumerator InteractionUI(Transform target)
     {
         WaitForSeconds wait = new WaitForSeconds(0.2f);
-        string keyName = interact.action.GetBindingDisplayString();
-        interactText.text = "press " + keyName + " to talk.";
-        uiPopUp.SetActive(true);
-       
+        //string keyName = interact.action.GetBindingDisplayString();
+        //interactText.text = "press " + keyName + " to talk.";
+        //uiPopUp.SetActive(true);
+        Debug.Log("detectBall");
         while
             (canSeeObject == true)
         {
-            if (interact.action.IsPressed())
+            if (interact.action.WasPerformedThisFrame())
             {
-                playerInput.SwitchCurrentActionMap("UI");
-                dialogueDisplay.StartDialogue(conversationName);
+                Debug.Log("pick up");
+                IInteractable interactable = target.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.OnInteract();
+                    canSeeObject = false;
+                }
+                // playerInput.SwitchCurrentActionMap("UI");
+                // dialogueDisplay.StartDialogue(conversationName);
             }
             yield return null;
-
         }
-        uiPopUp.SetActive(false);
+        //uiPopUp.SetActive(false);
     }
 }
