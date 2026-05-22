@@ -26,8 +26,8 @@ public class PlayerFieldOfView : MonoBehaviour
     [Header("NPC Interation")]
     public GameObject uiPopUp;
     public TextMeshPro interactText;
-    public GameObject dialogueManager;
-    DialogueDisplay dialogueDisplay;
+    
+    
 
     [Header("Player Inputs")]
     PlayerInput playerInput;
@@ -36,8 +36,6 @@ public class PlayerFieldOfView : MonoBehaviour
     private void Start()
     {
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-        //dialogueDisplay = dialogueManager.GetComponent<DialogueDisplay>();
-
         StartCoroutine(FOVRoutine());
     }
     private void OnEnable()
@@ -91,21 +89,20 @@ public class PlayerFieldOfView : MonoBehaviour
         //string keyName = interact.action.GetBindingDisplayString();
         //interactText.text = "press " + keyName + " to talk.";
         //uiPopUp.SetActive(true);
-        Debug.Log("detectBall");
+        Debug.Log("PRESS KEY TO INTERACT");
         while
             (canSeeObject == true)
         {
             if (interact.action.WasPerformedThisFrame())
             {
-                Debug.Log("pick up");
+                Debug.Log("interaction performed");
                 IInteractable interactable = target.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
                     interactable.OnInteract();
                     canSeeObject = false;
                 }
-                // playerInput.SwitchCurrentActionMap("UI");
-                // dialogueDisplay.StartDialogue(conversationName);
+                
             }
             yield return null;
         }
