@@ -204,6 +204,17 @@
                     "action": "Toss",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06e7571c-3484-428a-a1ae-ca4322f6ad61",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toss",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
