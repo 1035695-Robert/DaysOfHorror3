@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5576400416265343191}
   - component: {fileID: 2957856429614023207}
   - component: {fileID: 2699768204664377656}
+  - component: {fileID: 5174311420009146730}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   sprintSpeed: 10
-  rotationSpeed: 0
+  rotationSpeed: 10
   move: {fileID: -2532685585990711495, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   sprintHold: {fileID: -5259677108868521601, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   sprintToggle: {fileID: -4889667053840596211, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
@@ -174,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cc4cc399a69c747bff714ac102bf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversationName: 
+  conversationName: scene2
   radius: 2
   angle: 90
   canSeeObject: 0
@@ -214,6 +215,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5174311420009146730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827835738080554017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decab5d186f6a5e49937c9e6150abff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdArea: {fileID: 6126721103616396751}
+  heldObjectRB: {fileID: 0}
+  pickupRange: 5
+  pickupForce: 150
+  forceAmount: 20
 --- !u!1 &4723632004823270288
 GameObject:
   m_ObjectHideFlags: 0
