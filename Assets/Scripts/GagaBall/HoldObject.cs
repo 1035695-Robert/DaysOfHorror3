@@ -7,37 +7,32 @@ public class HoldObject : MonoBehaviour
 {
     [Header("PickUp settings")]
     [SerializeField] Transform holdArea;
-    private GameObject heldObject;
+    [SerializeField] public  GameObject heldObject;
     [SerializeField] private Rigidbody heldObjectRB;
-
-    [Header("physics Parameters")]
-    [SerializeField] private float pickupRange = 5.0f;
-    [SerializeField] private float pickupForce = 150f;
 
     [Header("Throwing")]
     [SerializeField] private float forceAmount = 500f;
-   
+
     public void Hold(Transform targetObject)
     {
-        Debug.Log("holding");
-
         if (targetObject.GetComponent<Rigidbody>())
         {
             heldObject = targetObject.gameObject;
             heldObject.layer = LayerMask.NameToLayer("PickUp");
-            
+
             heldObjectRB = heldObject.GetComponent<Rigidbody>();
             heldObjectRB.useGravity = false;
             heldObjectRB.linearDamping = 10;
             heldObjectRB.constraints = RigidbodyConstraints.FreezeRotation;
 
             heldObjectRB.transform.parent = holdArea;
-            heldObject.transform.localPosition = new Vector3(0,0,1f);
+            heldObject.transform.localPosition = new Vector3(0, 0, 1f);
             heldObject.transform.localRotation = Quaternion.identity;
+            Debug.Log("holding by " + heldObject.transform.parent.name);
         }
     }
 
-   public void Drop()
+    public void Drop()
     {
         Debug.Log("drop");
         heldObjectRB.useGravity = true;
@@ -51,7 +46,7 @@ public class HoldObject : MonoBehaviour
 
     public void Throw()
     {
-        Debug.Log("Throw");
+        Debug.Log("Thrown by " + heldObject.transform.parent.name);
         heldObjectRB.useGravity = true;
         heldObjectRB.linearDamping = 1;
         heldObjectRB.constraints = RigidbodyConstraints.None;
@@ -60,7 +55,6 @@ public class HoldObject : MonoBehaviour
         heldObject.layer = LayerMask.NameToLayer("Interactables");
         heldObjectRB.AddForce(transform.forward * forceAmount, ForceMode.Impulse);
         heldObject = null;
-        
     }
 
 }
