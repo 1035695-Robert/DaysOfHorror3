@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ public class ThrowAim : MonoBehaviour
     [Range(0f, 1f)]
     public float viewThreshold;
 
+    public float throwDelay = 1;
+
     private void Start()
     {
         interactable = ball.GetComponent<IInteractable>();
@@ -46,7 +49,7 @@ public class ThrowAim : MonoBehaviour
     public IEnumerator NPCDropCountDown(float timeLength, GameObject target)
     {
         float dropTime = timeLength;
-        movement.hasBall = true;
+        movement.StopMoving();
 
         while (dropTime > 0)
         {
@@ -60,22 +63,21 @@ public class ThrowAim : MonoBehaviour
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotateSpeed);
 
-                if (IsLookingAtTarget(target))
+                if (dropTime < throwDelay && IsLookingAtTarget(target))
                 {
                     holdObject.Throw();
                     movement.LoseBall();
-                    EventManager.ballCheck.Invoke();
+                    movement.StartMoving();
                     yield break;
                 }
             }
             dropTime -= Time.deltaTime;
-            movement.LoseBall();
-            EventManager.ballCheck.Invoke();
             yield return null;
         }
 
         holdObject.Drop();
-        movement.hasBall = false;
+        movement.LoseBall();
+        movement.StartMoving();
         yield return null;
     }
 

@@ -1,18 +1,19 @@
-using System;
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
+
 
 public class MovementAgent : MonoBehaviour
 {
 
     [SerializeField] private Transform targetObject;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     public bool hasBall;
     [SerializeField] private bool isFleeing;
 
-    private float fleeDistance = 10f;
+    private float defaultSpeed;
+    private float fleeRadius = 10f;
 
     private void OnEnable()
     {
@@ -31,6 +32,7 @@ public class MovementAgent : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        defaultSpeed = agent.speed;
     }
 
     private void FixedUpdate()
@@ -40,7 +42,7 @@ public class MovementAgent : MonoBehaviour
 
         if (!hasBall && !isFleeing)
         {
-            agent.destination = targetObject.position;
+            agent.SetDestination(targetObject.position);
         }
     }
     private void StartFlee()
@@ -53,10 +55,17 @@ public class MovementAgent : MonoBehaviour
         Debug.Log("i will run Away");
         while (isFleeing)
         {
-            Vector3 awayDirection = transform.position - targetObject.position;
-            Vector3 fleeDesitination = transform.position + (awayDirection.normalized * fleeDistance);
+            float distance = Vector3.Distance(transform.position, targetObject.position);
 
-            agent.SetDestination(fleeDesitination);
+            if (distance < fleeRadius)
+            {
+                Vector3 directionAway = transform.position - targetObject.position;
+                Vector3 runDireciton = directionAway.normalized * fleeRadius;
+
+                //NavMeshHit hit;
+                //if (NavMesh.SamplePosition(runDireciton, out hit, fleeRadius, NavMesh.AllAreas))
+                agent.SetDestination(runDireciton);
+            }
 
             yield return null;
         }
@@ -80,4 +89,15 @@ public class MovementAgent : MonoBehaviour
         isFleeing = false;
     }
 
+    public void StopMoving()
+    {
+        agent.speed = 0f;
+        hasBall = true;
+        agent.ResetPath();
+    }
+    public void StartMoving()
+    {
+        agent.speed = defaultSpeed;
+        hasBall = false;
+    }
 }

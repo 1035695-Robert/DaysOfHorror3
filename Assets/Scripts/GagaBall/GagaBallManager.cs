@@ -20,7 +20,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     public InputActionReference Toss;
     PlayerInput playerInput;
 
-    public Transform[] targets;
+    public GameObject[] players;
     private MovementAgent movement;
     void Start()
     {
@@ -51,7 +51,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             StartCoroutine(DropCountDown());
         else
         {
-            GameObject bestTarget = GetSmallestRotationTarget(targets);
+            GameObject bestTarget = FindRandomPlayer(players, target);
             ThrowAim aimThrow = target.GetComponent<ThrowAim>();
             
             movement = target.GetComponent<MovementAgent>();
@@ -59,16 +59,19 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
             aimThrow.StartCoroutine(aimThrow.NPCDropCountDown(dropTimeLength, bestTarget));
         }
-        EventManager.flee.Invoke();
+        EventManager.flee?.Invoke();
     }
-    GameObject GetSmallestRotationTarget(Transform[] Collection)
+    GameObject FindRandomPlayer(GameObject[] Collection, GameObject target)
     {
-        int randomIndex = Random.Range(0, Collection.Length);
-        Debug.Log(randomIndex);
-        return Collection[randomIndex].gameObject;
-        //return Collection
-        //    .OrderBy(t => Vector3.Angle(transform.forward, t.position - transform.position))
-        //    .FirstOrDefault();
+        //creates temporary array of players exluding itself
+        GameObject[] otherPlayer = Collection.Where(player => player != target).ToArray();
+
+        int randomIndexValue = Random.Range(0, otherPlayer.Length);
+        Debug.Log(otherPlayer[randomIndexValue].name);
+        return otherPlayer[randomIndexValue];
+
+        
+       
     }
 
     bool IsPlayer(GameObject target)

@@ -155,7 +155,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 1, z: 1}
+  m_Size: {x: 30, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &32549487
 Transform:
@@ -166,7 +166,7 @@ Transform:
   m_GameObject: {fileID: 32549485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 15.5}
+  m_LocalPosition: {x: 0, y: 3, z: 15.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -430,7 +430,7 @@ Transform:
   m_GameObject: {fileID: 129375700}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -15.500004, y: 0, z: -15.499996}
+  m_LocalPosition: {x: -15.5, y: 0, z: -15.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -455,7 +455,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 1, z: 1}
+  m_Size: {x: 30, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &164818842
 GameObject:
@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 229439720}
   - component: {fileID: 229439719}
   - component: {fileID: 229439718}
+  - component: {fileID: 229439726}
   m_Layer: 0
   m_Name: GagaNPC (1)
   m_TagString: Untagged
@@ -831,10 +832,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 229439717}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -843,7 +844,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &229439719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,7 +858,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 945181136}
+  agent: {fileID: 0}
   hasBall: 0
+  isFleeing: 0
 --- !u!114 &229439720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -874,7 +877,6 @@ MonoBehaviour:
   heldObject: {fileID: 0}
   heldObjectRB: {fileID: 0}
   forceAmount: 20
-  movement: {fileID: 0}
 --- !u!114 &229439721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -899,6 +901,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viewThreshold: 0.95
+  throwDelay: 2
 --- !u!136 &229439722
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -991,6 +994,33 @@ Transform:
   - {fileID: 109413416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.1, z: 0}
+--- !u!54 &229439726
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229439717}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &269933994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +1037,7 @@ GameObject:
   - component: {fileID: 269933997}
   - component: {fileID: 269933996}
   - component: {fileID: 269933995}
+  - component: {fileID: 269934003}
   m_Layer: 0
   m_Name: GagaNPC (4)
   m_TagString: Untagged
@@ -1023,10 +1054,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 269933994}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -1035,7 +1066,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &269933996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,7 +1080,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 945181136}
+  agent: {fileID: 0}
   hasBall: 0
+  isFleeing: 0
 --- !u!114 &269933997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1099,6 @@ MonoBehaviour:
   heldObject: {fileID: 0}
   heldObjectRB: {fileID: 0}
   forceAmount: 20
-  movement: {fileID: 0}
 --- !u!114 &269933998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viewThreshold: 0.95
+  throwDelay: 2
 --- !u!136 &269933999
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1183,6 +1216,33 @@ Transform:
   - {fileID: 548623286}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.1, z: 0}
+--- !u!54 &269934003
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269933994}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &352258686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1605,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 1, z: 1}
+  m_Size: {x: 30, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &686366057
 GameObject:
@@ -1563,6 +1623,7 @@ GameObject:
   - component: {fileID: 686366063}
   - component: {fileID: 686366064}
   - component: {fileID: 686366065}
+  - component: {fileID: 686366066}
   m_Layer: 0
   m_Name: GagaNPC
   m_TagString: Untagged
@@ -1594,6 +1655,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viewThreshold: 0.95
+  throwDelay: 2
 --- !u!136 &686366059
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1702,7 +1764,6 @@ MonoBehaviour:
   heldObject: {fileID: 0}
   heldObjectRB: {fileID: 0}
   forceAmount: 20
-  movement: {fileID: 0}
 --- !u!114 &686366064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1716,7 +1777,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 945181136}
+  agent: {fileID: 0}
   hasBall: 0
+  isFleeing: 0
 --- !u!195 &686366065
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1726,10 +1789,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 686366057}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -1738,7 +1801,34 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
+--- !u!54 &686366066
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686366057}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &739706257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,6 +1845,7 @@ GameObject:
   - component: {fileID: 739706260}
   - component: {fileID: 739706259}
   - component: {fileID: 739706258}
+  - component: {fileID: 739706266}
   m_Layer: 0
   m_Name: GagaNPC (2)
   m_TagString: Untagged
@@ -1771,10 +1862,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 739706257}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -1783,7 +1874,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &739706259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1797,7 +1888,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 945181136}
+  agent: {fileID: 0}
   hasBall: 0
+  isFleeing: 0
 --- !u!114 &739706260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1814,7 +1907,6 @@ MonoBehaviour:
   heldObject: {fileID: 0}
   heldObjectRB: {fileID: 0}
   forceAmount: 20
-  movement: {fileID: 0}
 --- !u!114 &739706261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1839,6 +1931,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viewThreshold: 0.95
+  throwDelay: 2
 --- !u!136 &739706262
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1931,6 +2024,33 @@ Transform:
   - {fileID: 369345886}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.1, z: 0}
+--- !u!54 &739706266
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739706257}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &819042014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,7 +2161,6 @@ GameObject:
   - component: {fileID: 945181133}
   - component: {fileID: 945181139}
   - component: {fileID: 945181138}
-  - component: {fileID: 945181140}
   m_Layer: 6
   m_Name: ball
   m_TagString: Untagged
@@ -2179,35 +2298,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropTimeLength: 3
   Toss: {fileID: -8483500098983047502, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
-  targets:
-  - {fileID: 1091244016}
-  - {fileID: 686366062}
-  - {fileID: 229439725}
-  - {fileID: 739706265}
-  - {fileID: 1281571598}
-  - {fileID: 269934002}
---- !u!195 &945181140
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945181132}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  players:
+  - {fileID: 1376632020}
+  - {fileID: 686366057}
+  - {fileID: 229439717}
+  - {fileID: 739706257}
+  - {fileID: 1281571590}
+  - {fileID: 269933994}
 --- !u!1001 &1091244015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2263,10 +2360,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1827835738080554017, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1376632029}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
 --- !u!4 &1091244016 stripped
 Transform:
@@ -2397,6 +2491,7 @@ GameObject:
   - component: {fileID: 1281571593}
   - component: {fileID: 1281571592}
   - component: {fileID: 1281571591}
+  - component: {fileID: 1281571599}
   m_Layer: 0
   m_Name: GagaNPC (3)
   m_TagString: Untagged
@@ -2413,10 +2508,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 1281571590}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.50000006
-  m_Speed: 5
+  m_Radius: 1
+  m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -2425,7 +2520,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &1281571592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,7 +2534,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObject: {fileID: 945181136}
+  agent: {fileID: 0}
   hasBall: 0
+  isFleeing: 0
 --- !u!114 &1281571593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2456,7 +2553,6 @@ MonoBehaviour:
   heldObject: {fileID: 0}
   heldObjectRB: {fileID: 0}
   forceAmount: 20
-  movement: {fileID: 0}
 --- !u!114 &1281571594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,6 +2577,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   viewThreshold: 0.95
+  throwDelay: 2
 --- !u!136 &1281571595
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2573,33 +2670,38 @@ Transform:
   - {fileID: 181035760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0.1, z: 0}
+--- !u!54 &1281571599
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281571590}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1376632020 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1827835738080554017, guid: 61b7a3f707420d343b0faab37f503520, type: 3}
   m_PrefabInstance: {fileID: 1091244015}
   m_PrefabAsset: {fileID: 0}
---- !u!195 &1376632029
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1376632020}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 0
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &1556887774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,7 +2753,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 1, z: 1}
+  m_Size: {x: 30, y: 10, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1621784709
 GameObject:
