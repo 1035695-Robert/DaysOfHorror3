@@ -21,15 +21,15 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     PlayerInput playerInput;
 
     public Transform[] targets;
-
+    private MovementAgent movement;
     void Start()
     {
-        //player = GameObject.Find("player");
-        //playerControls = player.GetComponent<PlayerController>();
+        player = GameObject.Find("player");
+        playerControls = player.GetComponent<PlayerController>();
 
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-
-        //playeyDefaultSpeed = playerControls.walkSpeed;
+       
+        playeyDefaultSpeed = playerControls.walkSpeed;
     }
     private void OnEnable()
     {
@@ -44,16 +44,22 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     {
         holdObject = target.GetComponent<HoldObject>();
         //pick ball up 
+        
         holdObject.Hold(transform);
-
+        Debug.Log(transform.parent.name);
         if (IsPlayer(target))
             StartCoroutine(DropCountDown());
         else
         {
             GameObject bestTarget = GetSmallestRotationTarget(targets);
-            GagaAgent gagaAgent = target.GetComponent<GagaAgent>();
-            gagaAgent.StartCoroutine(gagaAgent.NPCDropCountDown(dropTimeLength, bestTarget));
+            ThrowAim aimThrow = target.GetComponent<ThrowAim>();
+            
+            movement = target.GetComponent<MovementAgent>();
+            movement.HasBall();
+
+            aimThrow.StartCoroutine(aimThrow.NPCDropCountDown(dropTimeLength, bestTarget));
         }
+        EventManager.flee.Invoke();
     }
     GameObject GetSmallestRotationTarget(Transform[] Collection)
     {
@@ -74,7 +80,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     }
     public IEnumerator DropCountDown()
     {
-        //playerControls.walkSpeed = 0;
+        playerControls.walkSpeed = 0;
         float dropTime = dropTimeLength;
         while (dropTime > 0)
         {
@@ -82,13 +88,15 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             if (Toss.action.WasPerformedThisFrame())
             {
                 holdObject.Throw();
-                //playerControls.walkSpeed = playeyDefaultSpeed;
+                playerControls.walkSpeed = playeyDefaultSpeed;
+                EventManager.ballCheck.Invoke();
                 yield break;
             }
             yield return null;
         }
         holdObject.Drop();
-        //playerControls.walkSpeed = playeyDefaultSpeed;
+        EventManager.ballCheck.Invoke();
+        playerControls.walkSpeed = playeyDefaultSpeed;
         yield return null;
     }
 

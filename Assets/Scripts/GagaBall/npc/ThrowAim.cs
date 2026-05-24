@@ -3,7 +3,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GagaAgent : MonoBehaviour
+public class ThrowAim : MonoBehaviour
 {
     [SerializeField] private float rotateSpeed;
 
@@ -22,7 +22,7 @@ public class GagaAgent : MonoBehaviour
 
     HoldObject holdObject;
 
-
+    MovementAgent movement;
 
     [Range(0f, 1f)]
     public float viewThreshold;
@@ -31,7 +31,9 @@ public class GagaAgent : MonoBehaviour
     {
         interactable = ball.GetComponent<IInteractable>();
         holdObject = GetComponent<HoldObject>();
+        movement = GetComponent<MovementAgent>();
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         if ((taskMask.value & (1 << collision.gameObject.layer)) != 0)
@@ -44,6 +46,7 @@ public class GagaAgent : MonoBehaviour
     public IEnumerator NPCDropCountDown(float timeLength, GameObject target)
     {
         float dropTime = timeLength;
+        movement.hasBall = true;
 
         while (dropTime > 0)
         {
@@ -60,14 +63,19 @@ public class GagaAgent : MonoBehaviour
                 if (IsLookingAtTarget(target))
                 {
                     holdObject.Throw();
+                    movement.LoseBall();
+                    EventManager.ballCheck.Invoke();
                     yield break;
                 }
             }
             dropTime -= Time.deltaTime;
+            movement.LoseBall();
+            EventManager.ballCheck.Invoke();
             yield return null;
         }
 
         holdObject.Drop();
+        movement.hasBall = false;
         yield return null;
     }
 

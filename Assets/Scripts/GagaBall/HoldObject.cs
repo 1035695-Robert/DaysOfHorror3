@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,7 +8,7 @@ public class HoldObject : MonoBehaviour
 {
     [Header("PickUp settings")]
     [SerializeField] Transform holdArea;
-    [SerializeField] public  GameObject heldObject;
+    [SerializeField] public GameObject heldObject;
     [SerializeField] private Rigidbody heldObjectRB;
 
     [Header("Throwing")]
@@ -28,7 +29,6 @@ public class HoldObject : MonoBehaviour
             heldObjectRB.transform.parent = holdArea;
             heldObject.transform.localPosition = new Vector3(0, 0, 1f);
             heldObject.transform.localRotation = Quaternion.identity;
-            Debug.Log("holding by " + heldObject.transform.parent.name);
         }
     }
 
