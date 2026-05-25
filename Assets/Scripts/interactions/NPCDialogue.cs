@@ -9,7 +9,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     {
         dialogueDisplay = GameObject.Find("DialogueManager").GetComponent<DialogueDisplay>();
     }
-    public void OnInteract()
+    public void OnInteract(GameObject target)
     {
         dialogueDisplay.StartDialogue(conversationName);
     }

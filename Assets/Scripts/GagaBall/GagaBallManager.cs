@@ -1,6 +1,9 @@
 using JetBrains.Annotations;
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,26 +13,36 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     GameObject player;
     PlayerController playerControls;
     HoldObject holdObject;
-   
+
+    private Rigidbody thrownObject;
+
     float playeyDefaultSpeed;
 
-    public float dropTimeLenght = 3.0f;
-   
+    public float dropTimeLength = 3.0f;
+
+    public float stopThreshold = 0.01f;
 
     public InputActionReference Toss;
     PlayerInput playerInput;
-    
+
+    public GameObject[] players;
+    private MovementAgent movement;
+
+    public bool isThrowActive;
+    Collider ballCollision;
     void Start()
     {
+        thrownObject = gameObject.GetComponent<Rigidbody>();
         player = GameObject.Find("player");
         playerControls = player.GetComponent<PlayerController>();
-        
+
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-        
+
         playeyDefaultSpeed = playerControls.walkSpeed;
 
-        holdObject = player.GetComponent<HoldObject>();
+
     }
+
     private void OnEnable()
     {
         Toss.action.Enable();
@@ -39,32 +52,108 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         Toss.action.Disable();
     }
 
-    public void OnInteract()
+    public void OnInteract(GameObject target)
     {
+        StopAllCoroutines();
+
+        transform.GetComponent<Renderer>().material.color = Color.white;
+
+        holdObject = target.GetComponent<HoldObject>();
         //pick ball up 
+
         holdObject.Hold(transform);
-        StartCoroutine(DropCountDown());
+        Debug.Log(transform.parent.name);
+        if (IsPlayer(target))
+            StartCoroutine(DropCountDown());
+        else
+        {
+            GameObject bestTarget = FindRandomPlayer(players, target);
+            ThrowAim aimThrow = target.GetComponent<ThrowAim>();
+
+            movement = target.GetComponent<MovementAgent>();
+            movement.HasBall();
+
+            aimThrow.StartCoroutine(aimThrow.NPCDropCountDown(dropTimeLength, bestTarget));
+        }
+        EventManager.flee?.Invoke();
+    }
+    GameObject FindRandomPlayer(GameObject[] Collection, GameObject target)
+    {
+        //creates temporary array of players exluding itself
+        GameObject[] otherPlayer = Collection.Where(player => player != target).ToArray();
+
+        int randomIndexValue = Random.Range(0, otherPlayer.Length);
+        Debug.Log(otherPlayer[randomIndexValue].name);
+        return otherPlayer[randomIndexValue];
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.transform.name == "ground" && isThrowActive)
+        {
+            StartCoroutine(WaitTillSlowedDown());
+        }
+        foreach (var player in players)
+        {
+            if (collision.gameObject.name == player.name && isThrowActive)
+            {
+                HitTarget(player);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        foreach (var player in players)
+        {
+            if (other.gameObject.name == player.name && isThrowActive)
+            {
+                HitTarget(player);
+            }
+        }
+    }
+
+    bool IsPlayer(GameObject target)
+    {
+        if (target.name == "player")
+            return true;
+        else
+            return false;
+    }
     public IEnumerator DropCountDown()
     {
         playerControls.walkSpeed = 0;
-        float dropTime = dropTimeLenght;
+        float dropTime = dropTimeLength;
         while (dropTime > 0)
         {
             dropTime -= Time.deltaTime;
-            if(Toss.action.WasPerformedThisFrame())
+            if (Toss.action.WasPerformedThisFrame())
             {
                 holdObject.Throw();
                 playerControls.walkSpeed = playeyDefaultSpeed;
+                isThrowActive = true;
                 yield break;
             }
             yield return null;
         }
         holdObject.Drop();
+        EventManager.ballCheck.Invoke();
         playerControls.walkSpeed = playeyDefaultSpeed;
         yield return null;
     }
 
+    public IEnumerator WaitTillSlowedDown()
+    {
+        yield return new WaitForSeconds(0.5f);
 
+        transform.GetComponent<Renderer>().material.color = Color.red;
+        EventManager.ballCheck?.Invoke();
+        isThrowActive = false;
+    }
+
+    void HitTarget(GameObject player)
+    {
+
+    }
 }

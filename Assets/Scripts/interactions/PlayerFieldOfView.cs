@@ -99,7 +99,7 @@ public class PlayerFieldOfView : MonoBehaviour
                 IInteractable interactable = target.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
-                    interactable.OnInteract();
+                    interactable.OnInteract(gameObject);
                     canSeeObject = false;
                 }
                 
