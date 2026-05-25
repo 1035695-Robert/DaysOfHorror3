@@ -80,8 +80,6 @@ public class MovementAgent : MonoBehaviour
     public void LoseBall()
     {
         EventManager.flee += StartFlee;
-
-        EventManager.ballCheck.Invoke();
     }
     private void BallUpdate()
     {

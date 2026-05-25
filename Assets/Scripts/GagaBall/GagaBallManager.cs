@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,25 +14,35 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     PlayerController playerControls;
     HoldObject holdObject;
 
+    private Rigidbody thrownObject;
+
     float playeyDefaultSpeed;
 
     public float dropTimeLength = 3.0f;
 
+    public float stopThreshold = 0.01f;
 
     public InputActionReference Toss;
     PlayerInput playerInput;
 
     public GameObject[] players;
     private MovementAgent movement;
+
+    public bool isThrowActive;
+    Collider ballCollision;
     void Start()
     {
+        thrownObject = gameObject.GetComponent<Rigidbody>();
         player = GameObject.Find("player");
         playerControls = player.GetComponent<PlayerController>();
 
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-       
+
         playeyDefaultSpeed = playerControls.walkSpeed;
+
+
     }
+
     private void OnEnable()
     {
         Toss.action.Enable();
@@ -42,9 +54,13 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     public void OnInteract(GameObject target)
     {
+        StopAllCoroutines();
+
+        transform.GetComponent<Renderer>().material.color = Color.white;
+
         holdObject = target.GetComponent<HoldObject>();
         //pick ball up 
-        
+
         holdObject.Hold(transform);
         Debug.Log(transform.parent.name);
         if (IsPlayer(target))
@@ -53,7 +69,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         {
             GameObject bestTarget = FindRandomPlayer(players, target);
             ThrowAim aimThrow = target.GetComponent<ThrowAim>();
-            
+
             movement = target.GetComponent<MovementAgent>();
             movement.HasBall();
 
@@ -69,9 +85,33 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         int randomIndexValue = Random.Range(0, otherPlayer.Length);
         Debug.Log(otherPlayer[randomIndexValue].name);
         return otherPlayer[randomIndexValue];
+    }
 
-        
-       
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.transform.name == "ground" && isThrowActive)
+        {
+            StartCoroutine(WaitTillSlowedDown());
+        }
+        foreach (var player in players)
+        {
+            if (collision.gameObject.name == player.name && isThrowActive)
+            {
+                HitTarget(player);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        foreach (var player in players)
+        {
+            if (other.gameObject.name == player.name && isThrowActive)
+            {
+                HitTarget(player);
+            }
+        }
     }
 
     bool IsPlayer(GameObject target)
@@ -92,7 +132,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             {
                 holdObject.Throw();
                 playerControls.walkSpeed = playeyDefaultSpeed;
-                EventManager.ballCheck.Invoke();
+                isThrowActive = true;
                 yield break;
             }
             yield return null;
@@ -103,6 +143,17 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         yield return null;
     }
 
-    
-   
+    public IEnumerator WaitTillSlowedDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        transform.GetComponent<Renderer>().material.color = Color.red;
+        EventManager.ballCheck?.Invoke();
+        isThrowActive = false;
+    }
+
+    void HitTarget(GameObject player)
+    {
+
+    }
 }

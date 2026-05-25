@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class ThrowAim : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class ThrowAim : MonoBehaviour
     public float throwRange;
     public LayerMask obstructionMask;
     public LayerMask taskMask;
+    public GagaBallManager manager;
 
     HoldObject holdObject;
 
@@ -30,16 +32,19 @@ public class ThrowAim : MonoBehaviour
 
     public float throwDelay = 1;
 
+   
+
     private void Start()
     {
         interactable = ball.GetComponent<IInteractable>();
         holdObject = GetComponent<HoldObject>();
         movement = GetComponent<MovementAgent>();
+        manager = ball.GetComponent<GagaBallManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((taskMask.value & (1 << collision.gameObject.layer)) != 0)
+        if ((taskMask.value & (1 << collision.gameObject.layer)) != 0 && !manager.isThrowActive)
         {
             interactable.OnInteract(gameObject);
         }
@@ -66,6 +71,7 @@ public class ThrowAim : MonoBehaviour
                 if (dropTime < throwDelay && IsLookingAtTarget(target))
                 {
                     holdObject.Throw();
+                    manager.isThrowActive = true;
                     movement.LoseBall();
                     movement.StartMoving();
                     yield break;
