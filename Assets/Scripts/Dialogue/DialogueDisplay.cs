@@ -86,9 +86,9 @@ public class DialogueDisplay : MonoBehaviour
             dialogueComponent.text += c;
             if(char.IsPunctuation(c))
             {
-                yield return new WaitForSeconds(scriptData[index].textSpeed * 2);
+                yield return new WaitForSecondsRealtime(scriptData[index].textSpeed * 2);
             }
-            yield return new WaitForSeconds(scriptData[index].textSpeed);
+            yield return new WaitForSecondsRealtime(scriptData[index].textSpeed);
         }
     }
 
@@ -105,6 +105,7 @@ public class DialogueDisplay : MonoBehaviour
             isTalking = false;
             playerInput.SwitchCurrentActionMap("Player");
              dialogueUI.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 }

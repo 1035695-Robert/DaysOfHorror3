@@ -20,6 +20,14 @@ public class Health : MonoBehaviour
         healthUI.text =maxHealth.ToString();
         manager = GameObject.Find("ball").GetComponent<GagaBallManager>();
     }
+    private void OnEnable()
+    {
+        EventManager.finalShowdown += FinalShowdown;
+    }
+    private void OnDisable()
+    {
+        EventManager.finalShowdown -= FinalShowdown;
+    }
     public void BeenHit()
     {
         health--;
@@ -37,5 +45,11 @@ public class Health : MonoBehaviour
                 gameOver.GameOverMenu();
             }
         }
+    }
+
+     public void FinalShowdown()
+    {
+        health = 1;
+        healthUI.gameObject.SetActive(false);
     }
 }

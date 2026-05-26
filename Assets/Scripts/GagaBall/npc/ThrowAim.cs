@@ -42,13 +42,14 @@ public class ThrowAim : MonoBehaviour
         manager = ball.GetComponent<GagaBallManager>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if ((taskMask.value & (1 << collision.gameObject.layer)) != 0 && !manager.isThrowActive)
         {
             interactable.OnInteract(gameObject);
         }
     }
+   
 
 
     public IEnumerator NPCDropCountDown(float timeLength, GameObject target)

@@ -7,6 +7,7 @@ using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.WSA;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
@@ -27,11 +28,12 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     PlayerInput playerInput;
 
     public GameObject[] players;
-    private GameObject[] otherPlayers;
+    public GameObject[] otherPlayers;
     private MovementAgent movement;
 
     public bool isThrowActive;
     public bool isBombActive;
+    public bool isFinalShowdown = false;
     Collider ballCollision;
     void Start()
     {
@@ -42,10 +44,15 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
         playeyDefaultSpeed = playerControls.walkSpeed;
-
-
     }
 
+    private void FixedUpdate()
+    {
+       if(players.Length == 1)
+        {
+            Debug.Log("Gaga Ball Finished");
+        }
+    }
     private void OnEnable()
     {
         Toss.action.Enable();
@@ -85,24 +92,22 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     {
         //creates temporary array of players exluding itself
          otherPlayers = Collection.Where(player => player != target).ToArray();
-        if (otherPlayers.Length <= 1f)
+        if (otherPlayers.Length <= 1f && !isFinalShowdown)
         {
             ActivateBombBall();
         }
         int randomIndexValue = Random.Range(0, otherPlayers.Length);
         Debug.Log(otherPlayers[randomIndexValue].name);
         return otherPlayers[randomIndexValue];
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.transform.name == "ground" && isThrowActive)
         {
             StartCoroutine(WaitTillSlowedDown());
         }
-        foreach (var player in players)
+        foreach (var player in otherPlayers)
         {
             if (collision.gameObject.name == player.name && isThrowActive)
             {
@@ -117,7 +122,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach (var player in players)
+        foreach (var player in otherPlayers)
         {
             if (other.gameObject.name == player.name && isThrowActive)
             {
@@ -175,10 +180,11 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     }
 
    void ActivateBombBall()
-    {
-         isBombActive = true;
-        NPCDialogue dialogue = GetComponent<NPCDialogue>();
-        dialogue.OnInteract(gameObject);
+    { isFinalShowdown = true;
+        isBombActive = true;
+        EventDialogue dialogue = gameObject.GetComponent<EventDialogue>();
+        EventManager.finalShowdown.Invoke();
+        dialogue.OnInteract();
         //time.timescale = 0f;
     }
 }

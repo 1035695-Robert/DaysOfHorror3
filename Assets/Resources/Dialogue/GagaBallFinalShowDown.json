@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "speakerName": "Doc",
+      "dialogueLine": "time for the final ShowDown",
+      "textSpeed": 0.3
+    },
+    {
+      "speakerName": "Doc",
+      "dialogueLine": "Get Ready",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Doc",
+      "dialogueLine": "Here We GO!!!",
+      "textSpeed": 0.1
+    }
+  ]
+}
