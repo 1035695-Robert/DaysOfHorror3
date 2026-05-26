@@ -11,6 +11,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     }
     public void OnInteract(GameObject target)
     {
+        Time.timeScale = 0f;
         dialogueDisplay.StartDialogue(conversationName);
     }
 }
