@@ -46,13 +46,6 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         playeyDefaultSpeed = playerControls.walkSpeed;
     }
 
-    private void FixedUpdate()
-    {
-       if(players.Length == 1)
-        {
-            Debug.Log("Gaga Ball Finished");
-        }
-    }
     private void OnEnable()
     {
         Toss.action.Enable();
@@ -91,7 +84,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     GameObject FindRandomPlayer(GameObject[] Collection, GameObject target)
     {
         //creates temporary array of players exluding itself
-         otherPlayers = Collection.Where(player => player != target).ToArray();
+        otherPlayers = Collection.Where(player => player != target).ToArray();
         if (otherPlayers.Length <= 1f && !isFinalShowdown)
         {
             ActivateBombBall();
@@ -112,9 +105,9 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             if (collision.gameObject.name == player.name && isThrowActive)
             {
                 HitTarget(player);
-                if(isBombActive)
+                if (isBombActive)
                 {
-                    Debug.Log("KABOOM");
+                    Explosion(player);
                 }
             }
         }
@@ -127,6 +120,10 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             if (other.gameObject.name == player.name && isThrowActive)
             {
                 HitTarget(player);
+                if (isBombActive)
+                {
+                    Explosion(player);
+                }
             }
         }
     }
@@ -179,12 +176,28 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         players = players.Where(knockOut => knockOut != outPlayer).ToArray();
     }
 
-   void ActivateBombBall()
-    { isFinalShowdown = true;
+    void ActivateBombBall()
+    {
+        isFinalShowdown = true;
         isBombActive = true;
         EventDialogue dialogue = gameObject.GetComponent<EventDialogue>();
         EventManager.finalShowdown.Invoke();
         dialogue.OnInteract();
         //time.timescale = 0f;
+    }
+    void Explosion(GameObject player)
+    {
+
+        Debug.Log("KABOOM");
+        if (player.name == "player")
+        {
+            GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
+            gameOver.GameOverMenu();
+        }
+        else
+        {
+            Debug.Log("playerWins");
+        }
+
     }
 }
