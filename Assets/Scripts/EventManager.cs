@@ -11,5 +11,6 @@ public class EventManager
     public delegate void Ball();
     public static Ball ballCheck;
 
-
+    public delegate void FinalShowdown();
+    public static FinalShowdown finalShowdown;
 }

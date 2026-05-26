@@ -7,6 +7,8 @@ using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.WSA;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
 {
@@ -26,9 +28,12 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     PlayerInput playerInput;
 
     public GameObject[] players;
+    public GameObject[] otherPlayers;
     private MovementAgent movement;
 
     public bool isThrowActive;
+    public bool isBombActive;
+    public bool isFinalShowdown = false;
     Collider ballCollision;
     void Start()
     {
@@ -39,10 +44,15 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
         playeyDefaultSpeed = playerControls.walkSpeed;
-
-
     }
 
+    private void FixedUpdate()
+    {
+       if(players.Length == 1)
+        {
+            Debug.Log("Gaga Ball Finished");
+        }
+    }
     private void OnEnable()
     {
         Toss.action.Enable();
@@ -61,13 +71,14 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         holdObject = target.GetComponent<HoldObject>();
         //pick ball up 
 
+        GameObject bestTarget = FindRandomPlayer(players, target);
+
         holdObject.Hold(transform);
         Debug.Log(transform.parent.name);
         if (IsPlayer(target))
             StartCoroutine(DropCountDown());
         else
         {
-            GameObject bestTarget = FindRandomPlayer(players, target);
             ThrowAim aimThrow = target.GetComponent<ThrowAim>();
 
             movement = target.GetComponent<MovementAgent>();
@@ -80,32 +91,38 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     GameObject FindRandomPlayer(GameObject[] Collection, GameObject target)
     {
         //creates temporary array of players exluding itself
-        GameObject[] otherPlayer = Collection.Where(player => player != target).ToArray();
-
-        int randomIndexValue = Random.Range(0, otherPlayer.Length);
-        Debug.Log(otherPlayer[randomIndexValue].name);
-        return otherPlayer[randomIndexValue];
+         otherPlayers = Collection.Where(player => player != target).ToArray();
+        if (otherPlayers.Length <= 1f && !isFinalShowdown)
+        {
+            ActivateBombBall();
+        }
+        int randomIndexValue = Random.Range(0, otherPlayers.Length);
+        Debug.Log(otherPlayers[randomIndexValue].name);
+        return otherPlayers[randomIndexValue];
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.transform.name == "ground" && isThrowActive)
         {
             StartCoroutine(WaitTillSlowedDown());
         }
-        foreach (var player in players)
+        foreach (var player in otherPlayers)
         {
             if (collision.gameObject.name == player.name && isThrowActive)
             {
                 HitTarget(player);
+                if(isBombActive)
+                {
+                    Debug.Log("KABOOM");
+                }
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach (var player in players)
+        foreach (var player in otherPlayers)
         {
             if (other.gameObject.name == player.name && isThrowActive)
             {
@@ -154,6 +171,20 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     void HitTarget(GameObject player)
     {
+        Health health = player.GetComponent<Health>();
+        health.BeenHit();
+    }
+    public void PlayerIsOut(GameObject outPlayer)
+    {
+        players = players.Where(knockOut => knockOut != outPlayer).ToArray();
+    }
 
+   void ActivateBombBall()
+    { isFinalShowdown = true;
+        isBombActive = true;
+        EventDialogue dialogue = gameObject.GetComponent<EventDialogue>();
+        EventManager.finalShowdown.Invoke();
+        dialogue.OnInteract();
+        //time.timescale = 0f;
     }
 }

@@ -27,8 +27,6 @@ public class MovementAgent : MonoBehaviour
         EventManager.ballCheck -= BallUpdate;
     }
 
-
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
