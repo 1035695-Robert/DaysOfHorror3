@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     private Rigidbody rb;
     private Vector2 directionInput;
 
@@ -13,8 +12,6 @@ public class PlayerController : MonoBehaviour
 
 
     public InputActionReference move;
-
-
 
     private CharacterController controller;
     public bool isToggleActive = false;
