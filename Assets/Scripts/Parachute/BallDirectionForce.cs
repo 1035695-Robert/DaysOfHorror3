@@ -4,9 +4,10 @@ using UnityEngine.UIElements;
 
 public class BallDirectionForce : MonoBehaviour
 {
-    public GameObject Ball;
+    [SerializeField] private GameObject Ball;
     private Rigidbody ballRb;
-    public float forceValue;
+    [Range(0,20)]
+    [SerializeField]private float forceValue;
 
     public float angle;
 
@@ -18,14 +19,10 @@ public class BallDirectionForce : MonoBehaviour
     {
         float forceStrength = forceValue * (float)forceOutput;
         Debug.Log(forceStrength);
-        Vector3 playerForward = transform.forward;
+        
+        Vector3 pullDirection = (transform.position - ballRb.position).normalized;
 
-        float randomAngle = Random.Range(-angle / 2, angle / 2);
-        Quaternion randomRotation = Quaternion.Euler(0, randomAngle, 0);
-
-        Vector3 forceDirection = randomRotation * playerForward;
-
-        ballRb.AddForce(forceDirection * forceStrength, ForceMode.Impulse);
+        ballRb.AddForce(pullDirection * forceStrength, ForceMode.Impulse);
     }
 
 

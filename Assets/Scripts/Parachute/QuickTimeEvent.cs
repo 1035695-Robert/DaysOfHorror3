@@ -9,6 +9,7 @@ using Mono.Cecil;
 using UnityEditor.ShaderGraph.Internal;
 using Unity.VisualScripting;
 using System.Diagnostics.CodeAnalysis;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class QuickTimeEvent : MonoBehaviour
 {
@@ -33,8 +34,8 @@ public class QuickTimeEvent : MonoBehaviour
 
     public PlayerInput inputManager;
 
-    public GameObject player;
-    private BallDirectionForce ballDirection;
+    
+    private LaunchBall launchBall;
     private void OnEnable()
     {
         lift.action.Enable();
@@ -46,36 +47,37 @@ public class QuickTimeEvent : MonoBehaviour
 
     public void Start()
     {
-        GradientUI();
-        forceGameUI.SetActive(false);
-        ballDirection = player.GetComponent<BallDirectionForce>();
+        launchBall = GameObject.Find("Ball").GetComponent<LaunchBall>();
         inputManager.SwitchCurrentActionMap("UI");
-        
+
+    }
+   IEnumerator GetUIComponents(GameObject player)
+    {
+        GameObject canvas = player.transform.Find("Canvas").gameObject;
+
+        forceGameUI = canvas.transform.Find("Bar").gameObject;
+        pointA = forceGameUI.transform.Find("A").GetComponent<RectTransform>();
+        pointB = forceGameUI.transform.Find("B").GetComponent<RectTransform>();
+        center = forceGameUI.transform.Find("center").GetComponent<RectTransform>();
+        pointer = forceGameUI.transform.Find("Pointer").GetComponent<RectTransform>();
+        yield return null;
     }
 
-    public void Pointer()
+    public IEnumerator MovePointer(GameObject player)
     {
-        Debug.Log("start force game");
-        StartCoroutine(MovePointer());
-    }
-    public IEnumerator MovePointer()
-    {
-        Debug.Log("i am working");
+        Debug.Log("good Day");
+        yield return StartCoroutine(GetUIComponents(player));
+        GradientUI(player);
         forceGameUI.SetActive(true);
 
         Vector2 startPosition = pointA.position;
-
         Vector2 endPosition = pointB.position;
         float distance = Vector2.Distance(startPosition, endPosition);
 
         pointer.position = startPosition;
 
-        
-        //Time.timeScale = 0.2f;
-
         while ((Vector2)pointer.position != endPosition)
         {
-            
             pointer.position = Vector2.MoveTowards(pointer.position, endPosition, speed * Time.unscaledDeltaTime);
 
             float targetDistance = Vector2.Distance(pointer.position, center.position);
@@ -84,19 +86,21 @@ public class QuickTimeEvent : MonoBehaviour
 
             if (lift.action.WasPerformedThisFrame())
             {
-               // Time.timeScale = 1;
                 double roundedValue = Math.Round(forcePercentage, 2);
-                ballDirection.ConfirmForceAmount(roundedValue);
-                
+                launchBall.StoreForceValue(roundedValue, player);
+
+                forceGameUI.SetActive(false); 
+                yield break;        
             }
+
             yield return null;
         }
-        //Time.timeScale = 1;
-        yield return new WaitForSeconds(0.05f);
         forceGameUI.SetActive(false);
+        launchBall.StoreForceValue(0, player);
+        Debug.Log("missed");
     }
 
-    void GradientUI()
+    void GradientUI(GameObject Player)
     {
         gradient = new Gradient();
         gradient.SetKeys(
@@ -122,6 +126,8 @@ public class QuickTimeEvent : MonoBehaviour
         }
         texture.Apply();
         Rect rect = new Rect(0, 0, texture.width, texture.height);
+
+        bar = forceGameUI.GetComponent<Image>();
         bar.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
     }
 }
