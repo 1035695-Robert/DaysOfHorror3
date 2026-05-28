@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Interfaces;
 
 public class PlayerFieldOfView : MonoBehaviour
 {

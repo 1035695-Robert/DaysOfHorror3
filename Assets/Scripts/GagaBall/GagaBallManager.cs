@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.WSA;
+using static Interfaces;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
 {
