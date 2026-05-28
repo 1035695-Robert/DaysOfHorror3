@@ -9,13 +9,15 @@ using UnityEngine.InputSystem;
 
 public class DialogueDisplay : MonoBehaviour
 {
+    public static DialogueDisplay Instance;
+
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI speakerComponent;
     [SerializeField] TextMeshProUGUI dialogueComponent;
 
-
+   
     public InputActionReference DialogueAction;
-    
+
     PlayerInput playerInput;
     DialogueFiles files;
     public List<DialogueData> scriptData;
@@ -23,13 +25,22 @@ public class DialogueDisplay : MonoBehaviour
     public int index;
     private bool isTalking = false;
 
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
     private void Start()
     {
         files = GetComponent<DialogueFiles>();
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
-        DontDestroyOnLoad(this);
+
     }
 
     private void OnEnable()
@@ -84,7 +95,7 @@ public class DialogueDisplay : MonoBehaviour
         {
             //dialogueComponent.fontSize = scriptData[index].textSize;
             dialogueComponent.text += c;
-            if(char.IsPunctuation(c))
+            if (char.IsPunctuation(c))
             {
                 yield return new WaitForSecondsRealtime(scriptData[index].textSpeed * 2);
             }
@@ -104,7 +115,7 @@ public class DialogueDisplay : MonoBehaviour
         {
             isTalking = false;
             playerInput.SwitchCurrentActionMap("Player");
-             dialogueUI.SetActive(false);
+            dialogueUI.SetActive(false);
             Time.timeScale = 1;
         }
     }

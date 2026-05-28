@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Interfaces;
 
 public class NPCDialogue : MonoBehaviour, IInteractable
 {
