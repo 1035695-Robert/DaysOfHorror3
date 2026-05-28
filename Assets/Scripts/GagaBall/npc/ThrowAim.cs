@@ -4,6 +4,7 @@ using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using static Interfaces;
 
 public class ThrowAim : MonoBehaviour
 {
