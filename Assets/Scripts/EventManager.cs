@@ -13,4 +13,7 @@ public class EventManager
 
     public delegate void FinalShowdown();
     public static FinalShowdown finalShowdown;
+
+    public delegate void TossRound(int round);
+    public static TossRound tossRound;
 }
