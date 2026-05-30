@@ -19,6 +19,7 @@ public class GameOverManager : MonoBehaviour
 
     public void GameOverMenu()
     {
+        Time.timeScale = 0f;
         Debug.Log("GameOver");
     }
 
