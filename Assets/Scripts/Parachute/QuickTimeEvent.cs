@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 using System;
 using UnityEngine.UI;
 using JetBrains.Annotations;
+using DG.Tweening;
+using UnityEditor;
+
 
 
 public class QuickTimeEvent : MonoBehaviour
@@ -21,8 +24,7 @@ public class QuickTimeEvent : MonoBehaviour
     public int width = 300;
     public RandomSpeedList RSL;
     public Gradient gradient;
-    [Range(0f, 500f)]
-    public float speed;
+
 
 
     [Range(0, 1)]
@@ -35,6 +37,9 @@ public class QuickTimeEvent : MonoBehaviour
     public float randomSpeed;
     private LaunchBall launchBall;
 
+    private Tween qteTween;
+
+    private Transform mainCamera;
 
     private void OnEnable()
     {
@@ -52,33 +57,56 @@ public class QuickTimeEvent : MonoBehaviour
         RSL = FindAnyObjectByType<RandomSpeedList>();
         inputManager = FindAnyObjectByType<InputManager>().instance;
         playerInputManager = inputManager.GetComponent<PlayerInput>();
-        if(playerInputManager.currentActionMap != null && playerInputManager.currentActionMap.name != "UI" )
-        { playerInputManager.SwitchCurrentActionMap("UI");}
-
+        if (playerInputManager.currentActionMap != null && playerInputManager.currentActionMap.name != "UI")
+        { playerInputManager.SwitchCurrentActionMap("UI"); }
+        mainCamera = Camera.main.transform;
         GetUIComponents();
 
     }
     void GetUIComponents()
     {
-        GameObject canvas = transform.gameObject;
+        Canvas canvas = GetComponent<Canvas>();
 
         forceGameUI = canvas.transform.Find("Bar").gameObject;
         pointA = forceGameUI.transform.Find("A").GetComponent<RectTransform>();
         pointB = forceGameUI.transform.Find("B").GetComponent<RectTransform>();
         center = forceGameUI.transform.Find("center").GetComponent<RectTransform>();
         pointer = forceGameUI.transform.Find("Pointer").GetComponent<RectTransform>();
-
+        CameraSetup();
         GradientUI();
+    }
+    void CameraSetup()
+    {
+        Vector3 uiPosition = transform.position;
+        uiPosition.y = 2f;
+
+        forceGameUI.transform.position = uiPosition;
+
+
+        Quaternion uiRotation = forceGameUI.transform.rotation;
+        uiRotation.z = transform.rotation.y;
+
+
     }
     public void ForceUI(int round)
     {
 
         randomSpeed = UnityEngine.Random.Range(RSL.rsRange[round].speedValues.x, RSL.rsRange[round].speedValues.y);
-
         Debug.Log("min:" + RSL.rsRange[0].speedValues.x + " Max:" + RSL.rsRange[0].speedValues.y);
+
+        Vector3 startPosition = pointA.position;
+        Vector3 endPosition = pointB.position;
+
+        pointer.position = startPosition;
+
+        qteTween = pointer.DOMove(endPosition, randomSpeed)
+             .SetLoops(-1, LoopType.Yoyo)
+             .SetEase(Ease.Linear);
+
+
         StartCoroutine(MovePointer(randomSpeed));
     }
-    public IEnumerator MovePointer(float AdditionalSpeed)
+    private IEnumerator MovePointer(float AdditionalSpeed)
     {
         Debug.Log("good Day");
 
@@ -92,9 +120,6 @@ public class QuickTimeEvent : MonoBehaviour
 
         while (true)
         {
-            float timeSpeed = Mathf.PingPong(Time.time * AdditionalSpeed, 1f);
-            pointer.position = Vector2.Lerp(startPosition, endPosition, timeSpeed);
-
             float targetDistance = Vector2.Distance(pointer.position, center.position);
             float range = Mathf.Clamp01(targetDistance / (width / 2));
             forcePercentage = 1.0f - range;
@@ -103,7 +128,7 @@ public class QuickTimeEvent : MonoBehaviour
             {
                 double roundedValue = Math.Round(forcePercentage, 2);
                 StoreForceValue((float)roundedValue);
-
+                qteTween.Kill();
                 forceGameUI.SetActive(false);
                 yield break;
             }
