@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "H - How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Stuart",
+            "dialogueLine": "...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "CLancy",
+            "dialogueLine": "...",
+            "textSpeed": 0.1
+        }
+    ]
+}
