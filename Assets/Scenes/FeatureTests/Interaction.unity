@@ -1278,7 +1278,7 @@ GameObject:
   - component: {fileID: 2091127759}
   - component: {fileID: 2091127758}
   m_Layer: 6
-  m_Name: GAGA BALL (1)
+  m_Name: Parachute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22576c4f622d48c4f9c2d16fec938498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: GagaTest
+  sceneName: testParachute
 --- !u!65 &2091127759
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1380,7 +1380,7 @@ Transform:
   m_GameObject: {fileID: 2091127757}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.69, y: 1, z: 0}
+  m_LocalPosition: {x: 3.69, y: 1, z: -2.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

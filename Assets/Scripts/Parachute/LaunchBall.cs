@@ -26,6 +26,7 @@ public class LaunchBall : MonoBehaviour
     private float lowestValue;
     private float highestValue;
 
+    public LivingPlayerManager playerManagerList;
     public List<PlayerForceStats> playerForce = new List<PlayerForceStats>();
     public List<GameObject> weakestPlayer = new List<GameObject>();
 
@@ -34,11 +35,23 @@ public class LaunchBall : MonoBehaviour
     public Vector3 rollBack = new Vector3(0, 0.5f, 0);
     public int roundIndex;
 
+
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+
+        playerManagerList = FindAnyObjectByType<LivingPlayerManager>().instance;
+        for (int p = playerManagerList.playerLists.Count - 1; p >= 0; p--)
+        {
+            Debug.Log(playerManagerList.playerLists.Count);
+            playerForce[p].player = playerManagerList.playerLists[p].playerPrefab;
+        }
+
         quickTimeEvent = FindAnyObjectByType<QuickTimeEvent>();
 
-        rb = GetComponent<Rigidbody>();
+
+        rb.useGravity = true;
         roundIndex = 0;
     }
 
