@@ -9,25 +9,38 @@ using UnityEngine.InputSystem;
 
 public class DialogueDisplay : MonoBehaviour
 {
+    public static DialogueDisplay Instance;
+
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI speakerComponent;
     [SerializeField] TextMeshProUGUI dialogueComponent;
 
-
+   
     public InputActionReference DialogueAction;
-    
+
+    PlayerInput playerInput;
     DialogueFiles files;
     public List<DialogueData> scriptData;
 
     public int index;
     private bool isTalking = false;
 
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+    }
     private void Start()
     {
         files = GetComponent<DialogueFiles>();
+        playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
-        DontDestroyOnLoad(this);
+
     }
 
     private void OnEnable()
@@ -54,17 +67,10 @@ public class DialogueDisplay : MonoBehaviour
             }
         }
     }
-   
-
-
-    private void Update()
-    {
-        
-        
-    }
-
     public void StartDialogue(string fileName)
     {
+        playerInput.SwitchCurrentActionMap("UI");
+
         if (isTalking == true)
         { return; }
 
@@ -89,11 +95,11 @@ public class DialogueDisplay : MonoBehaviour
         {
             //dialogueComponent.fontSize = scriptData[index].textSize;
             dialogueComponent.text += c;
-            if(char.IsPunctuation(c))
+            if (char.IsPunctuation(c))
             {
-                yield return new WaitForSeconds(scriptData[index].textSpeed * 2);
+                yield return new WaitForSecondsRealtime(scriptData[index].textSpeed * 2);
             }
-            yield return new WaitForSeconds(scriptData[index].textSpeed);
+            yield return new WaitForSecondsRealtime(scriptData[index].textSpeed);
         }
     }
 
@@ -108,7 +114,9 @@ public class DialogueDisplay : MonoBehaviour
         else
         {
             isTalking = false;
-             dialogueUI.SetActive(false);
+            playerInput.SwitchCurrentActionMap("Player");
+            dialogueUI.SetActive(false);
+            Time.timeScale = 1;
         }
     }
 }
