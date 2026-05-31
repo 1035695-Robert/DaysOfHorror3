@@ -19,7 +19,7 @@ public class QuickTimeEvent : MonoBehaviour
     public Image bar;
 
     public int width = 300;
-    public RandomSpeedList RSL = new RandomSpeedList();
+    public RandomSpeedList RSL;
     public Gradient gradient;
     [Range(0f, 500f)]
     public float speed;
@@ -29,7 +29,8 @@ public class QuickTimeEvent : MonoBehaviour
     public float forcePercentage;
     public InputActionReference lift;
 
-    public PlayerInput inputManager;
+    public InputManager inputManager;
+    private PlayerInput playerInputManager;
 
     public float randomSpeed;
     private LaunchBall launchBall;
@@ -49,7 +50,11 @@ public class QuickTimeEvent : MonoBehaviour
     {
         launchBall = GameObject.Find("Ball").GetComponent<LaunchBall>();
         RSL = FindAnyObjectByType<RandomSpeedList>();
-        inputManager.SwitchCurrentActionMap("UI");
+        inputManager = FindAnyObjectByType<InputManager>().instance;
+        playerInputManager = inputManager.GetComponent<PlayerInput>();
+        if(playerInputManager.currentActionMap != null && playerInputManager.currentActionMap.name != "UI" )
+        { playerInputManager.SwitchCurrentActionMap("UI");}
+
         GetUIComponents();
 
     }
@@ -79,8 +84,8 @@ public class QuickTimeEvent : MonoBehaviour
 
         forceGameUI.SetActive(true);
 
-        Vector2 startPosition = pointA.position;
-        Vector2 endPosition = pointB.position;
+        Vector3 startPosition = pointA.position;
+        Vector3 endPosition = pointB.position;
         float distance = Vector2.Distance(startPosition, endPosition);
 
         pointer.position = startPosition;
@@ -108,8 +113,8 @@ public class QuickTimeEvent : MonoBehaviour
     }
     public void StoreForceValue(float Value)
     {
-        int index = launchBall.playerForce.FindIndex(player => player.player == transform.parent.gameObject);
-
+        int index = launchBall.playerForce.FindIndex(player => player.player == transform.root.gameObject);
+        Debug.Log(index);
         launchBall.playerForce[index].forceValue = Value;
         launchBall.isPaused = false;
     }
