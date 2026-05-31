@@ -5,11 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.UI;
-using Mono.Cecil;
-using UnityEditor.ShaderGraph.Internal;
-using Unity.VisualScripting;
-using System.Diagnostics.CodeAnalysis;
-using Unity.VisualScripting.Antlr3.Runtime;
+using JetBrains.Annotations;
+
 
 public class QuickTimeEvent : MonoBehaviour
 {
@@ -22,7 +19,7 @@ public class QuickTimeEvent : MonoBehaviour
     public Image bar;
 
     public int width = 300;
-
+    public RandomSpeedList RSL = new RandomSpeedList();
     public Gradient gradient;
     [Range(0f, 500f)]
     public float speed;
@@ -34,10 +31,13 @@ public class QuickTimeEvent : MonoBehaviour
 
     public PlayerInput inputManager;
 
-    
+    public float randomSpeed;
     private LaunchBall launchBall;
+
+
     private void OnEnable()
     {
+        EventManager.tossRound += ForceUI;
         lift.action.Enable();
     }
     private void OnDisable()
@@ -48,26 +48,35 @@ public class QuickTimeEvent : MonoBehaviour
     public void Start()
     {
         launchBall = GameObject.Find("Ball").GetComponent<LaunchBall>();
+        RSL = FindAnyObjectByType<RandomSpeedList>();
         inputManager.SwitchCurrentActionMap("UI");
+        GetUIComponents();
 
     }
-   IEnumerator GetUIComponents(GameObject player)
+    void GetUIComponents()
     {
-        GameObject canvas = player.transform.Find("Canvas").gameObject;
+        GameObject canvas = transform.gameObject;
 
         forceGameUI = canvas.transform.Find("Bar").gameObject;
         pointA = forceGameUI.transform.Find("A").GetComponent<RectTransform>();
         pointB = forceGameUI.transform.Find("B").GetComponent<RectTransform>();
         center = forceGameUI.transform.Find("center").GetComponent<RectTransform>();
         pointer = forceGameUI.transform.Find("Pointer").GetComponent<RectTransform>();
-        yield return null;
-    }
 
-    public IEnumerator MovePointer(GameObject player)
+        GradientUI();
+    }
+    public void ForceUI(int round)
+    {
+
+        randomSpeed = UnityEngine.Random.Range(RSL.rsRange[round].speedValues.x, RSL.rsRange[round].speedValues.y);
+
+        Debug.Log("min:" + RSL.rsRange[0].speedValues.x + " Max:" + RSL.rsRange[0].speedValues.y);
+        StartCoroutine(MovePointer(randomSpeed));
+    }
+    public IEnumerator MovePointer(float AdditionalSpeed)
     {
         Debug.Log("good Day");
-        yield return StartCoroutine(GetUIComponents(player));
-        GradientUI(player);
+
         forceGameUI.SetActive(true);
 
         Vector2 startPosition = pointA.position;
@@ -76,9 +85,10 @@ public class QuickTimeEvent : MonoBehaviour
 
         pointer.position = startPosition;
 
-        while ((Vector2)pointer.position != endPosition)
+        while (true)
         {
-            pointer.position = Vector2.MoveTowards(pointer.position, endPosition, speed * Time.unscaledDeltaTime);
+            float timeSpeed = Mathf.PingPong(Time.time * AdditionalSpeed, 1f);
+            pointer.position = Vector2.Lerp(startPosition, endPosition, timeSpeed);
 
             float targetDistance = Vector2.Distance(pointer.position, center.position);
             float range = Mathf.Clamp01(targetDistance / (width / 2));
@@ -87,20 +97,24 @@ public class QuickTimeEvent : MonoBehaviour
             if (lift.action.WasPerformedThisFrame())
             {
                 double roundedValue = Math.Round(forcePercentage, 2);
-                launchBall.StoreForceValue(roundedValue, player);
+                StoreForceValue((float)roundedValue);
 
-                forceGameUI.SetActive(false); 
-                yield break;        
+                forceGameUI.SetActive(false);
+                yield break;
             }
 
             yield return null;
         }
-        forceGameUI.SetActive(false);
-        launchBall.StoreForceValue(0, player);
-        Debug.Log("missed");
+    }
+    public void StoreForceValue(float Value)
+    {
+        int index = launchBall.playerForce.FindIndex(player => player.player == transform.parent.gameObject);
+
+        launchBall.playerForce[index].forceValue = Value;
+        launchBall.isPaused = false;
     }
 
-    void GradientUI(GameObject Player)
+    void GradientUI()
     {
         gradient = new Gradient();
         gradient.SetKeys(

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.WSA;
 
 [Serializable]
 public class PlayerForceStats
@@ -18,9 +19,9 @@ public class LaunchBall : MonoBehaviour
 {
     private Rigidbody rb;
 
-    QuickTimeEvent quickTimeEvent;
+    public QuickTimeEvent quickTimeEvent;
     public float launchForce;
-    private bool isPaused = false;
+    public bool isPaused = false;
 
     private float lowestValue;
     private float highestValue;
@@ -31,13 +32,14 @@ public class LaunchBall : MonoBehaviour
     public BallDirectionForce directions;
 
     public Vector3 rollBack = new Vector3(0, 0.5f, 0);
+    public int roundIndex;
 
     private void Start()
     {
-        quickTimeEvent = GameObject.Find("QTE_Manager").GetComponent<QuickTimeEvent>();
+        quickTimeEvent = FindAnyObjectByType<QuickTimeEvent>();
 
         rb = GetComponent<Rigidbody>();
-
+        roundIndex = 0;
     }
 
     IEnumerator LaunchCheck()
@@ -46,21 +48,18 @@ public class LaunchBall : MonoBehaviour
         {
             Debug.LogError("no players Found");
         }
-        foreach (var P in playerForce)
+
+        EventManager.tossRound.Invoke(roundIndex);
+        isPaused = true;
+        yield return null;
+        while (isPaused)
         {
-            StartCoroutine(quickTimeEvent.MovePointer(P.player));
-            isPaused = true;
             yield return null;
-            while (isPaused)
-            {
-                yield return null;
-            }
         }
-        if (!isPaused)
-        {
-            Debug.Log("Ready to Launch");
-            Launch();
-        }
+
+        Debug.Log("Ready to Launch");
+        Launch();
+        roundIndex++;
     }
 
     public void Launch()
@@ -107,14 +106,7 @@ public class LaunchBall : MonoBehaviour
         rb.AddForce(Vector3.up * launchForce, ForceMode.Impulse);
 
     }
-    public void StoreForceValue(double Value, GameObject player)
-    {
 
-        int index = playerForce.FindIndex(playerInfo => playerInfo.player.name == player.name);
-
-        playerForce[index].forceValue = (float)Value;
-        isPaused = false;
-    }
     private void OnCollisionEnter(Collision collision)
     {
         rb.angularVelocity = Vector3.zero;
@@ -128,7 +120,7 @@ public class LaunchBall : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-      if(other.transform.name == "ParachuteCenter")
+        if (other.transform.name == "ParachuteCenter")
         {
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
