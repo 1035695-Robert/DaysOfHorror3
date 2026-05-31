@@ -13,6 +13,6 @@ public class RangeValues
 
 public class RandomSpeedList : MonoBehaviour
 {
-    
-    public List<RangeValues> rsRange = new List<RangeValues>();
+
+    public List<RangeValues> rsRange;
 }

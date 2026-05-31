@@ -37,6 +37,7 @@ public class ThrowAim : MonoBehaviour
 
     private void Start()
     {
+        ball = GameObject.Find("ball").gameObject;
         interactable = ball.GetComponent<IInteractable>();
         holdObject = GetComponent<HoldObject>();
         movement = GetComponent<MovementAgent>();
@@ -73,6 +74,7 @@ public class ThrowAim : MonoBehaviour
                 if (dropTime < throwDelay && IsLookingAtTarget(target))
                 {
                     holdObject.Throw();
+                    ball.layer = LayerMask.NameToLayer("PickUp");
                     manager.isThrowActive = true;
                     movement.LoseBall();
                     movement.StartMoving();

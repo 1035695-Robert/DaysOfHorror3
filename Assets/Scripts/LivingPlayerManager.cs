@@ -1,16 +1,18 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[SerializeField]
+[Serializable]
 public class PlayerList
 {
     public string playerName;
-    public GameObject playerModel;
+    public GameObject playerPrefab;
 }
 public class LivingPlayerManager : MonoBehaviour
 {
     public LivingPlayerManager instance;
+    public List<PlayerList> playerLists = new List<PlayerList>();
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -21,6 +23,6 @@ public class LivingPlayerManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this);
     }
-    public List<PlayerList> playerLists = new List<PlayerList>();
+   
 
 }
