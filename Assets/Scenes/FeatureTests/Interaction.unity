@@ -1158,11 +1158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[1].playerName
-      value: Ryan
+      value: Matilda
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[2].playerName
-      value: Matilda
+      value: Ryan
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[3].playerName
