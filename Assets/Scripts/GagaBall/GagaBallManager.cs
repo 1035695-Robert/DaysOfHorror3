@@ -13,7 +13,7 @@ using static Interfaces;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
 {
-    GameObject player;
+    GameObject PlayableCharacter;
     PlayerController playerControls;
     HoldObject holdObject;
 
@@ -28,8 +28,11 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     public InputActionReference Toss;
     PlayerInput playerInput;
 
-    public GameObject[] players;
-    public GameObject[] otherPlayers;
+    public LivingPlayerManager playerManager;
+    public List<PlayerList> gagaPlayerList = new List<PlayerList>();
+    public List<PlayerList> targetable = new List<PlayerList>();
+
+    string playerString = "Clancy";
     private MovementAgent movement;
 
     public bool isThrowActive;
@@ -38,9 +41,15 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     Collider ballCollision;
     void Start()
     {
+        playerManager = FindAnyObjectByType<LivingPlayerManager>();
+        foreach (var p in playerManager.instance.playerLists)
+        {
+            gagaPlayerList.Add(p);
+        }
+
         thrownObject = gameObject.GetComponent<Rigidbody>();
-        player = GameObject.Find("player");
-        playerControls = player.GetComponent<PlayerController>();
+        PlayableCharacter = GameObject.Find(playerString);
+        playerControls = PlayableCharacter.GetComponent<PlayerController>();
 
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
@@ -65,12 +74,13 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         holdObject = target.GetComponent<HoldObject>();
         //pick ball up 
 
-        GameObject bestTarget = FindRandomPlayer(players, target);
+        GameObject bestTarget = FindRandomPlayer(target);
 
         holdObject.Hold(transform);
-        Debug.Log(transform.parent.name);
+
         if (IsPlayer(target))
             StartCoroutine(DropCountDown());
+
         else
         {
             ThrowAim aimThrow = target.GetComponent<ThrowAim>();
@@ -78,21 +88,29 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             movement = target.GetComponent<MovementAgent>();
             movement.HasBall();
 
+            Debug.Log(bestTarget);
             aimThrow.StartCoroutine(aimThrow.NPCDropCountDown(dropTimeLength, bestTarget));
+
         }
         EventManager.flee?.Invoke();
     }
-    GameObject FindRandomPlayer(GameObject[] Collection, GameObject target)
+    GameObject FindRandomPlayer(GameObject target)
     {
-        //creates temporary array of players exluding itself
-        otherPlayers = Collection.Where(player => player != target).ToArray();
-        if (otherPlayers.Length <= 1f && !isFinalShowdown)
+        if(targetable != null)
+        { targetable.Clear(); }
+        
+        foreach (var p in gagaPlayerList)
+        {
+            if (p.playerPrefab != target)
+            { targetable.Add(p); }
+        }
+
+        if (targetable.Count <= 1f && !isFinalShowdown)
         {
             ActivateBombBall();
         }
-        int randomIndexValue = Random.Range(0, otherPlayers.Length);
-        Debug.Log(otherPlayers[randomIndexValue].name);
-        return otherPlayers[randomIndexValue];
+        int randomIndexValue = Random.Range(0, targetable.Count);
+        return targetable[randomIndexValue].playerPrefab;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -101,14 +119,14 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         {
             StartCoroutine(WaitTillSlowedDown());
         }
-        foreach (var player in otherPlayers)
+        foreach (var p in targetable)
         {
-            if (collision.gameObject.name == player.name && isThrowActive)
+            if (collision.gameObject == p.playerPrefab && isThrowActive)
             {
-                HitTarget(player);
+                HitTarget(p.playerPrefab);
                 if (isBombActive)
                 {
-                    Explosion(player);
+                    Explosion(p.playerPrefab);
                 }
             }
         }
@@ -116,14 +134,14 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach (var player in otherPlayers)
+        foreach (var p in targetable)
         {
-            if (other.gameObject.name == player.name && isThrowActive)
+            if (other.gameObject == p.playerPrefab && isThrowActive)
             {
-                HitTarget(player);
+                HitTarget(p.playerPrefab);
                 if (isBombActive)
                 {
-                    Explosion(player);
+                    Explosion(p.playerPrefab);
                 }
             }
         }
@@ -131,7 +149,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     bool IsPlayer(GameObject target)
     {
-        if (target.name == "player")
+        if (target.name == playerString)
             return true;
         else
             return false;
@@ -146,6 +164,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             if (Toss.action.WasPerformedThisFrame())
             {
                 holdObject.Throw();
+                gameObject.layer = LayerMask.NameToLayer("PickUp");
                 playerControls.walkSpeed = playeyDefaultSpeed;
                 isThrowActive = true;
                 yield break;
@@ -153,7 +172,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             yield return null;
         }
         holdObject.Drop();
-        EventManager.ballCheck.Invoke();
+        EventManager.ballCheck?.Invoke();
         playerControls.walkSpeed = playeyDefaultSpeed;
         yield return null;
     }
@@ -163,18 +182,25 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(0.5f);
 
         transform.GetComponent<Renderer>().material.color = Color.red;
+        gameObject.layer = LayerMask.NameToLayer("Interactables");
         EventManager.ballCheck?.Invoke();
         isThrowActive = false;
+       
     }
 
-    void HitTarget(GameObject player)
+    void HitTarget(GameObject target)
     {
-        Health health = player.GetComponent<Health>();
+        Health health = target.GetComponent<Health>();
         health.BeenHit();
+        isThrowActive = false;
+        StartCoroutine(WaitTillSlowedDown());
+ 
+
+
     }
     public void PlayerIsOut(GameObject outPlayer)
     {
-        players = players.Where(knockOut => knockOut != outPlayer).ToArray();
+        gagaPlayerList.RemoveAll(knockOut => knockOut.playerPrefab == outPlayer);
     }
 
     void ActivateBombBall()
@@ -186,18 +212,19 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         dialogue.OnInteract();
         //time.timescale = 0f;
     }
-    void Explosion(GameObject player)
+    void Explosion(GameObject target)
     {
 
         Debug.Log("KABOOM");
-        if (player.name == "player")
+        if (target.name == playerString)
         {
             GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
-            gameOver.GameOverMenu();
+            gameOver.instance.GameOverMenu();
         }
         else
         {
             Debug.Log("playerWins");
+            playerManager.instance.playerLists.RemoveAll(player => player.playerPrefab == target);
         }
 
     }

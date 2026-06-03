@@ -29,6 +29,7 @@ public class MovementAgent : MonoBehaviour
 
     void Start()
     {
+        targetObject = GameObject.Find("ball").transform;
         agent = GetComponent<NavMeshAgent>();
         defaultSpeed = agent.speed;
     }

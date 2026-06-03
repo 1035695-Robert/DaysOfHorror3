@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine.UI;
-using Mono.Cecil;
-using UnityEditor.ShaderGraph.Internal;
-using Unity.VisualScripting;
-using System.Diagnostics.CodeAnalysis;
-using Unity.VisualScripting.Antlr3.Runtime;
+using JetBrains.Annotations;
+using DG.Tweening;
+using UnityEditor;
+
+
 
 public class QuickTimeEvent : MonoBehaviour
 {
@@ -22,22 +22,28 @@ public class QuickTimeEvent : MonoBehaviour
     public Image bar;
 
     public int width = 300;
-
+    public RandomSpeedList RSL;
     public Gradient gradient;
-    [Range(0f, 500f)]
-    public float speed;
+
 
 
     [Range(0, 1)]
     public float forcePercentage;
     public InputActionReference lift;
 
-    public PlayerInput inputManager;
+    public InputManager inputManager;
+    private PlayerInput playerInputManager;
 
-    
+    public float randomSpeed;
     private LaunchBall launchBall;
+
+    private Tween qteTween;
+
+    private Transform mainCamera;
+
     private void OnEnable()
     {
+        EventManager.tossRound += ForceUI;
         lift.action.Enable();
     }
     private void OnDisable()
@@ -48,38 +54,72 @@ public class QuickTimeEvent : MonoBehaviour
     public void Start()
     {
         launchBall = GameObject.Find("Ball").GetComponent<LaunchBall>();
-        inputManager.SwitchCurrentActionMap("UI");
+        RSL = FindAnyObjectByType<RandomSpeedList>();
+        inputManager = FindAnyObjectByType<InputManager>().instance;
+        playerInputManager = inputManager.GetComponent<PlayerInput>();
+        if (playerInputManager.currentActionMap != null && playerInputManager.currentActionMap.name != "UI")
+        { playerInputManager.SwitchCurrentActionMap("UI"); }
+        mainCamera = Camera.main.transform;
+        GetUIComponents();
 
     }
-   IEnumerator GetUIComponents(GameObject player)
+    void GetUIComponents()
     {
-        GameObject canvas = player.transform.Find("Canvas").gameObject;
+        Canvas canvas = GetComponent<Canvas>();
 
         forceGameUI = canvas.transform.Find("Bar").gameObject;
         pointA = forceGameUI.transform.Find("A").GetComponent<RectTransform>();
         pointB = forceGameUI.transform.Find("B").GetComponent<RectTransform>();
         center = forceGameUI.transform.Find("center").GetComponent<RectTransform>();
         pointer = forceGameUI.transform.Find("Pointer").GetComponent<RectTransform>();
-        yield return null;
+        CameraSetup();
+        GradientUI();
     }
+    void CameraSetup()
+    {
+        Vector3 uiPosition = transform.position;
+        uiPosition.y = 2f;
 
-    public IEnumerator MovePointer(GameObject player)
+        forceGameUI.transform.position = uiPosition;
+
+
+        Quaternion uiRotation = forceGameUI.transform.rotation;
+        uiRotation.z = transform.rotation.y;
+
+
+    }
+    public void ForceUI(int round)
+    {
+
+        randomSpeed = UnityEngine.Random.Range(RSL.rsRange[round].speedValues.x, RSL.rsRange[round].speedValues.y);
+        Debug.Log("min:" + RSL.rsRange[0].speedValues.x + " Max:" + RSL.rsRange[0].speedValues.y);
+
+        Vector3 startPosition = pointA.position;
+        Vector3 endPosition = pointB.position;
+
+        pointer.position = startPosition;
+
+        qteTween = pointer.DOMove(endPosition, randomSpeed)
+             .SetLoops(-1, LoopType.Yoyo)
+             .SetEase(Ease.Linear);
+
+
+        StartCoroutine(MovePointer(randomSpeed));
+    }
+    private IEnumerator MovePointer(float AdditionalSpeed)
     {
         Debug.Log("good Day");
-        yield return StartCoroutine(GetUIComponents(player));
-        GradientUI(player);
+
         forceGameUI.SetActive(true);
 
-        Vector2 startPosition = pointA.position;
-        Vector2 endPosition = pointB.position;
+        Vector3 startPosition = pointA.position;
+        Vector3 endPosition = pointB.position;
         float distance = Vector2.Distance(startPosition, endPosition);
 
         pointer.position = startPosition;
 
-        while ((Vector2)pointer.position != endPosition)
+        while (true)
         {
-            pointer.position = Vector2.MoveTowards(pointer.position, endPosition, speed * Time.unscaledDeltaTime);
-
             float targetDistance = Vector2.Distance(pointer.position, center.position);
             float range = Mathf.Clamp01(targetDistance / (width / 2));
             forcePercentage = 1.0f - range;
@@ -87,20 +127,24 @@ public class QuickTimeEvent : MonoBehaviour
             if (lift.action.WasPerformedThisFrame())
             {
                 double roundedValue = Math.Round(forcePercentage, 2);
-                launchBall.StoreForceValue(roundedValue, player);
-
-                forceGameUI.SetActive(false); 
-                yield break;        
+                StoreForceValue((float)roundedValue);
+                qteTween.Kill();
+                forceGameUI.SetActive(false);
+                yield break;
             }
 
             yield return null;
         }
-        forceGameUI.SetActive(false);
-        launchBall.StoreForceValue(0, player);
-        Debug.Log("missed");
+    }
+    public void StoreForceValue(float Value)
+    {
+        int index = launchBall.playerForce.FindIndex(player => player.player == transform.root.gameObject);
+        Debug.Log(index);
+        launchBall.playerForce[index].forceValue = Value;
+        launchBall.isPaused = false;
     }
 
-    void GradientUI(GameObject Player)
+    void GradientUI()
     {
         gradient = new Gradient();
         gradient.SetKeys(

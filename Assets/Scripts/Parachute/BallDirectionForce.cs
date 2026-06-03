@@ -13,7 +13,7 @@ public class BallDirectionForce : MonoBehaviour
 
     public void Start()
     {
-        ballRb = Ball.GetComponent<Rigidbody>();
+        ballRb = GameObject.Find("Ball").GetComponent<Rigidbody>();
     }
     public void ConfirmForceAmount(double forceOutput)
     {
@@ -24,6 +24,5 @@ public class BallDirectionForce : MonoBehaviour
 
         ballRb.AddForce(pullDirection * forceStrength, ForceMode.Impulse);
     }
-
 
 }
