@@ -982,6 +982,7 @@ GameObject:
   - component: {fileID: 975124661}
   - component: {fileID: 975124660}
   - component: {fileID: 975124662}
+  - component: {fileID: 975124663}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -1170,6 +1171,18 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &975124663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975124653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2c2423319909542bd2a219f4463c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583073185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583073186}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CamPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

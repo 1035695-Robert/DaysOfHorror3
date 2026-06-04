@@ -1,0 +1,49 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "H- How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "...is Ryan going to be okay?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Do you think the doctor went back to save him? He did leave after we were brought here so maybe-",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Right, he may have an anti-venom which he could've used! We may see him again soon when he's recovered...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": " ...Can you recover from that?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Those screams... I can't get them out of my head...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...Whatever happens, let's stick together, okay? Your my closest friend, and I don't want to lose you.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Yeah... I like the sound of that too.",
+            "textSpeed": 0.1
+        }
+    ]
+}

@@ -127,13 +127,13 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         {
             for (int tm = 0; tm < teamMembers.Count; tm++)
             {
-                if (teamMembers[tm].playerPrefab == target)
+                
+                for (int t = 0; t < targetable.Count;)
                 {
-                    isTeam = true;
-                }
-                for (int t = 0; t < targetable.Count; t++)
-                {
-
+                    if (teamMembers[tm].playerPrefab == target)
+                    {
+                        isTeam = true;
+                    }
                     if (targetable[t].playerPrefab == teamMembers[tm].playerPrefab && isTeam && !isFinalShowdown)
                     {
                         targetable.RemoveAll(T => T.playerName == teamMembers[tm].playerName);

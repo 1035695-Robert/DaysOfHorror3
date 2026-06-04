@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -34,7 +35,6 @@ public class LaunchBall : MonoBehaviour
 
     public Vector3 rollBack = new Vector3(0, 0.5f, 0);
     public int roundIndex;
-
 
     private void Start()
     {
@@ -122,10 +122,10 @@ public class LaunchBall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        rb.angularVelocity = Vector3.zero;
-        rb.linearVelocity = Vector3.zero;
         if (collision.transform.name == "ground")
         {
+            rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             Vector3 rollDirection = (new Vector3(0, transform.position.y, 0) - transform.position).normalized;
             rb.AddForce(rollDirection * 1f, ForceMode.Impulse);
         }

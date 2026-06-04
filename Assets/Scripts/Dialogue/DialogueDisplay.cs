@@ -9,13 +9,13 @@ using UnityEngine.InputSystem;
 
 public class DialogueDisplay : MonoBehaviour
 {
-    public static DialogueDisplay Instance;
+    public static DialogueDisplay instance;
 
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI speakerComponent;
     [SerializeField] TextMeshProUGUI dialogueComponent;
 
-   
+
     public InputActionReference DialogueAction;
 
     PlayerInput playerInput;
@@ -27,20 +27,18 @@ public class DialogueDisplay : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(this);
     }
     private void Start()
     {
         files = GetComponent<DialogueFiles>();
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-
-
     }
 
     private void OnEnable()
@@ -56,21 +54,37 @@ public class DialogueDisplay : MonoBehaviour
     {
         if (isTalking == true)
         {
-            if (dialogueComponent.text == scriptData[index].dialogueLine)
+            if (dialogueComponent.maxVisibleCharacters >= dialogueComponent.textInfo.characterCount)
             {
                 NextLine();
             }
             else
             {
                 StopAllCoroutines();
-                dialogueComponent.text = scriptData[index].dialogueLine;
+                dialogueComponent.maxVisibleCharacters = dialogueComponent.textInfo.characterCount;
             }
+        }
+    }
+    void NextLine()
+    {
+        if (index < scriptData.Count - 1)
+        {
+            index++;
+            dialogueComponent.text = string.Empty;
+            StartCoroutine(DialogueLines());
+        }
+        else
+        {
+            isTalking = false;
+            playerInput.SwitchCurrentActionMap("Player");
+            dialogueUI.SetActive(false);
+            Time.timeScale = 1;
         }
     }
     public void StartDialogue(string fileName)
     {
         playerInput.SwitchCurrentActionMap("UI");
-
+        Time.timeScale = 0f;
         if (isTalking == true)
         { return; }
 
@@ -91,33 +105,31 @@ public class DialogueDisplay : MonoBehaviour
 
         speakerComponent.text = scriptData[index].speakerName;
 
-        foreach (char c in scriptData[index].dialogueLine)
+        dialogueComponent.text = scriptData[index].dialogueLine;
+        dialogueComponent.maxVisibleCharacters = 0;
+
+
+        dialogueComponent.ForceMeshUpdate();
+
+        int totalCharacters = dialogueComponent.textInfo.characterCount;
+
+        while (dialogueComponent.maxVisibleCharacters < totalCharacters)
         {
-            //dialogueComponent.fontSize = scriptData[index].textSize;
-            dialogueComponent.text += c;
-            if (char.IsPunctuation(c))
+            dialogueComponent.maxVisibleCharacters++;
+            int lastCharIndex = dialogueComponent.maxVisibleCharacters - 1;
+            char lastChar = dialogueComponent.textInfo.characterInfo[lastCharIndex].character;
+            if (IsPunctuation(lastChar))
             {
                 yield return new WaitForSecondsRealtime(scriptData[index].textSpeed * 2);
             }
+
             yield return new WaitForSecondsRealtime(scriptData[index].textSpeed);
         }
     }
 
-    void NextLine()
+    private bool IsPunctuation(char ch)
     {
-        if (index < scriptData.Count - 1)
-        {
-            index++;
-            dialogueComponent.text = string.Empty;
-            StartCoroutine(DialogueLines());
-        }
-        else
-        {
-            isTalking = false;
-            playerInput.SwitchCurrentActionMap("Player");
-            dialogueUI.SetActive(false);
-            Time.timeScale = 1;
-        }
+        return ch == '.' || ch == ',' ||ch == '!' || ch == '?' || ch == ';' || ch == ':';
     }
 }
 

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22576c4f622d48c4f9c2d16fec938498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: GagaTest
+  sceneName: GagaBall
 --- !u!65 &179426043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -363,6 +363,25 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3480978248681821311, guid: f08e7a4556aadad45a25cfc92c0d875e, type: 3}
   m_PrefabInstance: {fileID: 473579784}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &784896857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6283644468819513873, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
+  m_PrefabInstance: {fileID: 1195484423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &784896861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784896857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d515ae2f7003de4a884ef5d1694cf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killedPlayer: 
+  deathGame: 
 --- !u!1 &937183905
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c8720254448c64ba47f48dcba95982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversationName: scene2
+  dialogueManager: {fileID: 0}
 --- !u!1001 &1195484423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -541,7 +560,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6283644468819513873, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 784896861}
   m_SourcePrefab: {fileID: 100100000, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
 --- !u!1 &1329572489
 GameObject:
@@ -1022,7 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22576c4f622d48c4f9c2d16fec938498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: testParachute
+  sceneName: Parachute
 --- !u!65 &2091127759
 BoxCollider:
   m_ObjectHideFlags: 0
