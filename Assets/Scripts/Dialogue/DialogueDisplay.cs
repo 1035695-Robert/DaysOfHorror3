@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 public class DialogueDisplay : MonoBehaviour
 {
-    public static DialogueDisplay Instance;
+    public static DialogueDisplay instance;
 
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI speakerComponent;
@@ -27,12 +27,12 @@ public class DialogueDisplay : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(this);
     }
     private void Start()
@@ -84,7 +84,7 @@ public class DialogueDisplay : MonoBehaviour
     public void StartDialogue(string fileName)
     {
         playerInput.SwitchCurrentActionMap("UI");
-
+        Time.timeScale = 0f;
         if (isTalking == true)
         { return; }
 

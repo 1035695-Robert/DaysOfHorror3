@@ -1,14 +1,8 @@
-using JetBrains.Annotations;
-using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Hierarchy;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.WSA;
+
 using static Interfaces;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
@@ -32,12 +26,14 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     public List<PlayerList> gagaPlayerList = new List<PlayerList>();
     public List<PlayerList> targetable = new List<PlayerList>();
 
+    public List<PlayerList> teamMembers;
     string playerString = "Clancy";
     private MovementAgent movement;
 
     public bool isThrowActive;
     public bool isBombActive;
     public bool isFinalShowdown = false;
+    public bool isTeam;
     Collider ballCollision;
     void Start()
     {
@@ -54,6 +50,23 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         playerInput = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
 
         playeyDefaultSpeed = playerControls.walkSpeed;
+        foreach (var p in gagaPlayerList)
+        {
+            if (p.playerName == "Clancy")
+            {
+                teamMembers.Add(p);
+            }
+            if (p.playerName == "Matilda")
+            {
+                teamMembers.Add(p);
+                return;
+            }
+            if (p.playerName == "Ryan")
+            {
+                teamMembers.Add(p);
+                return;
+            }
+        }
     }
 
     private void OnEnable()
@@ -90,28 +103,56 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
             Debug.Log(bestTarget);
             aimThrow.StartCoroutine(aimThrow.NPCDropCountDown(dropTimeLength, bestTarget));
-
         }
         EventManager.flee?.Invoke();
     }
     GameObject FindRandomPlayer(GameObject target)
     {
-        if(targetable != null)
+        if (targetable != null)
         { targetable.Clear(); }
-        
+
         foreach (var p in gagaPlayerList)
         {
+
             if (p.playerPrefab != target)
             { targetable.Add(p); }
+
         }
 
         if (targetable.Count <= 1f && !isFinalShowdown)
         {
             ActivateBombBall();
         }
+        else
+        {
+            for (int tm = 0; tm < teamMembers.Count; tm++)
+            {
+                
+                for (int t = 0; t < targetable.Count;)
+                {
+                    if (teamMembers[tm].playerPrefab == target)
+                    {
+                        isTeam = true;
+                    }
+                    if (targetable[t].playerPrefab == teamMembers[tm].playerPrefab && isTeam && !isFinalShowdown)
+                    {
+                        targetable.RemoveAll(T => T.playerName == teamMembers[tm].playerName);
+                    }
+                    break;
+                }
+
+            }
+            if(isTeam)
+            {
+                isTeam = false;
+            }
+        }
         int randomIndexValue = Random.Range(0, targetable.Count);
         return targetable[randomIndexValue].playerPrefab;
     }
+
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -185,7 +226,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         gameObject.layer = LayerMask.NameToLayer("Interactables");
         EventManager.ballCheck?.Invoke();
         isThrowActive = false;
-       
+
     }
 
     void HitTarget(GameObject target)
@@ -194,7 +235,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         health.BeenHit();
         isThrowActive = false;
         StartCoroutine(WaitTillSlowedDown());
- 
+
 
 
     }
@@ -224,6 +265,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         else
         {
             Debug.Log("playerWins");
+           
             playerManager.instance.playerLists.RemoveAll(player => player.playerPrefab == target);
         }
 

@@ -126,8 +126,8 @@ public class QuickTimeEvent : MonoBehaviour
 
             if (lift.action.WasPerformedThisFrame())
             {
-                double roundedValue = Math.Round(forcePercentage, 2);
-                StoreForceValue((float)roundedValue);
+                //double roundedValue = Math.Round(forcePercentage);
+                StoreForceValue(forcePercentage);
                 qteTween.Kill();
                 forceGameUI.SetActive(false);
                 yield break;

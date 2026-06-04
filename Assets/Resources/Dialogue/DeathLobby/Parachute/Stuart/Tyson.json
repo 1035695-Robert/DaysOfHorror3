@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "I'm doing fine, thank you for asking. How about you?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Oh- I'm doing fine yeah.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "That's wonderful to hear. Your idea was truly great as well.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "Rather than reacting with self-concern or your friends, your idea benefitted all.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Thanks...",
+            "textSpeed": 0.1
+        }
+    ]
+}
