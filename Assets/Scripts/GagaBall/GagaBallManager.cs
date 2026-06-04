@@ -1,15 +1,8 @@
-using JetBrains.Annotations;
-using Mono.Cecil;
-using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Hierarchy;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.WSA;
+
 using static Interfaces;
 
 public class GagaBallManager : MonoBehaviour, IInteractable
@@ -40,6 +33,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     public bool isThrowActive;
     public bool isBombActive;
     public bool isFinalShowdown = false;
+    public bool isTeam;
     Collider ballCollision;
     void Start()
     {
@@ -131,25 +125,34 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         }
         else
         {
-            for (int t = 0; t < targetable.Count; t++)
+            for (int tm = 0; tm < teamMembers.Count; tm++)
             {
-                if (targetable[t].playerPrefab == target)
+                if (teamMembers[tm].playerPrefab == target)
                 {
-                    Debug.Log("teamMembers are here");
-                    foreach (var tm in teamMembers)
-                    {
-                        if (tm.playerPrefab != target)
-                        {
-                            targetable.RemoveAll(T => T.playerName == tm.playerName);
-                            break;
-                        }
-                    }
+                    isTeam = true;
                 }
+                for (int t = 0; t < targetable.Count; t++)
+                {
+
+                    if (targetable[t].playerPrefab == teamMembers[tm].playerPrefab && isTeam && !isFinalShowdown)
+                    {
+                        targetable.RemoveAll(T => T.playerName == teamMembers[tm].playerName);
+                    }
+                    break;
+                }
+
+            }
+            if(isTeam)
+            {
+                isTeam = false;
             }
         }
         int randomIndexValue = Random.Range(0, targetable.Count);
         return targetable[randomIndexValue].playerPrefab;
     }
+
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -262,6 +265,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         else
         {
             Debug.Log("playerWins");
+           
             playerManager.instance.playerLists.RemoveAll(player => player.playerPrefab == target);
         }
 
