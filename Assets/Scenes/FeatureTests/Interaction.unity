@@ -804,6 +804,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3685398277614394059, guid: 294e9701768ffef449158bc1491a3118, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685398277614394059, guid: 294e9701768ffef449158bc1491a3118, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4077959644723292518, guid: 294e9701768ffef449158bc1491a3118, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -847,6 +855,14 @@ PrefabInstance:
     - target: {fileID: 7395507753582169794, guid: 294e9701768ffef449158bc1491a3118, type: 3}
       propertyPath: m_Name
       value: Cinemachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708029679418373001, guid: 294e9701768ffef449158bc1491a3118, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8708029679418373001, guid: 294e9701768ffef449158bc1491a3118, type: 3}
+      propertyPath: m_RenderShadows
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1158,11 +1174,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[1].playerName
-      value: Ryan
+      value: Matilda
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[2].playerName
-      value: Matilda
+      value: Ryan
       objectReference: {fileID: 0}
     - target: {fileID: 6918637826453928559, guid: 93a5124ad0c24924489e7ee968e8d3de, type: 3}
       propertyPath: playerLists.Array.data[3].playerName
