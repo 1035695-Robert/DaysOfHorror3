@@ -1,29 +1,60 @@
 {
-    "data": [
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "How are you holding up?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Stuart",
-            "dialogueLine": "What's it to you?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "CLancy",
-            "dialogueLine": "Just figured I'd ask...",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Stuart",
-            "dialogueLine": "...I'm alright. Thanks.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "No worries.",
-            "textSpeed": 0.1
-        }
-    ]
+  "data": [
+    {
+      "speakerName": "Clancy",
+      "dialogueLine": "…what.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "The activity has ended.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": " You did good there with that suggestion. That played a big role in our success there.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Clancy",
+      "dialogueLine": "A- A..",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "<b>You were selfish, Clancy.</b>",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Your self-concern was what killed them.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Rather than work together to try and see how you could all get out alive, you chose to selfishly save your own skin.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Clancy",
+      "dialogueLine": "...",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Through direct experience, you will see the truth.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "This activity and its outcome have built towards seeing that truth, Clancy.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "The most important thing… is every life in the world around us.",
+      "textSpeed": 0.1
+    }
+  ]
 }
+

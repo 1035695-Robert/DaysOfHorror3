@@ -8,7 +8,7 @@ public class KillCollision : MonoBehaviour
 
     private void Start()
     {
-        playerManagerList = FindAnyObjectByType<LivingPlayerManager>().instance;
+        playerManagerList = FindAnyObjectByType<LivingPlayerManager>();
         endOfGame = GameObject.Find("DialogueManager").GetComponent<EndOfGameDialogue>();
 
     }
@@ -27,6 +27,7 @@ public class KillCollision : MonoBehaviour
                 Debug.Log(killedPlayer);
                 endOfGame.EndGameSaveData(killedPlayer, "Parachute");
                 playerManagerList.playerLists.Remove(playerManagerList.playerLists[index]);
+
             }
             else
             {

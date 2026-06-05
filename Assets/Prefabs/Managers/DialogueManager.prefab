@@ -463,6 +463,8 @@ GameObject:
   - component: {fileID: 721034662108468344}
   - component: {fileID: 3542625608752756310}
   - component: {fileID: 3668157561397653550}
+  - component: {fileID: 4715463261104576528}
+  - component: {fileID: 3348278907280867778}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -510,12 +512,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2327e5424388ff84882c3541b5ce5bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueUI: {fileID: 7830643654180873494}
-  speakerComponent: {fileID: 2778757993330060500}
-  dialogueComponent: {fileID: 6336824579163687802}
+  dialogueUI: {fileID: 0}
+  speakerComponent: {fileID: 0}
+  dialogueComponent: {fileID: 0}
   DialogueAction: {fileID: 1211798279734114095, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   scriptData: []
   index: 0
+--- !u!114 &4715463261104576528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283644468819513873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c320c45d0678e4ca41d18336f38f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instance: {fileID: 0}
+  conversationName: GagaBal/
+--- !u!114 &3348278907280867778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6283644468819513873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d515ae2f7003de4a884ef5d1694cf07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killedPlayer: 
+  deathGame: 
 --- !u!1 &7830643654180873494
 GameObject:
   m_ObjectHideFlags: 0

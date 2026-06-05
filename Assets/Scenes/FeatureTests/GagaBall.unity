@@ -471,18 +471,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3668157561397653550, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
-      propertyPath: dialogueUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3668157561397653550, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
-      propertyPath: speakerComponent
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3668157561397653550, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
-      propertyPath: dialogueComponent
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6283644468819513873, guid: 6fad2cae8daaccd4badd3614ec247b83, type: 3}
       propertyPath: m_Name
       value: DialogueManager
@@ -636,7 +624,6 @@ GameObject:
   - component: {fileID: 945181133}
   - component: {fileID: 945181139}
   - component: {fileID: 945181138}
-  - component: {fileID: 945181140}
   - component: {fileID: 945181141}
   m_Layer: 6
   m_Name: ball
@@ -779,22 +766,11 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   gagaPlayerList: []
   targetable: []
+  teamMembers: []
   isThrowActive: 0
   isBombActive: 0
   isFinalShowdown: 0
---- !u!114 &945181140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945181132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c320c45d0678e4ca41d18336f38f93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conversationName: GagaBallFinalShowDown
+  isTeam: 0
 --- !u!114 &945181141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,7 +783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75bbc08b8418fc2429f4f7f5272c4c89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 0}
+  playerManager: {fileID: 0}
   deathSceneFile: GagaBall
   SpawnLocations:
   - {fileID: 832418825}

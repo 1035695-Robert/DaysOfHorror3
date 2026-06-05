@@ -41,7 +41,7 @@ public class LaunchBall : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
 
-        playerManagerList = FindAnyObjectByType<LivingPlayerManager>().instance;
+        playerManagerList = FindAnyObjectByType<LivingPlayerManager>();
         for (int p = playerManagerList.playerLists.Count - 1; p >= 0; p--)
         {
             Debug.Log(playerManagerList.playerLists.Count);
