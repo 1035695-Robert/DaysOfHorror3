@@ -39,8 +39,7 @@ public class QuickTimeEvent : MonoBehaviour
 
     private Tween qteTween;
 
-    private Transform mainCamera;
-
+    private PlayerAnimation anim;
     private void OnEnable()
     {
         EventManager.tossRound += ForceUI;
@@ -55,11 +54,11 @@ public class QuickTimeEvent : MonoBehaviour
     {
         launchBall = GameObject.Find("Ball").GetComponent<LaunchBall>();
         RSL = FindAnyObjectByType<RandomSpeedList>();
-        inputManager = FindAnyObjectByType<InputManager>().instance;
+        inputManager = FindAnyObjectByType<InputManager>();
         playerInputManager = inputManager.GetComponent<PlayerInput>();
         if (playerInputManager.currentActionMap != null && playerInputManager.currentActionMap.name != "UI")
         { playerInputManager.SwitchCurrentActionMap("UI"); }
-        mainCamera = Camera.main.transform;
+        anim = transform.root.GetComponent<PlayerAnimation>();
         GetUIComponents();
 
     }
@@ -85,8 +84,6 @@ public class QuickTimeEvent : MonoBehaviour
 
         Quaternion uiRotation = forceGameUI.transform.rotation;
         uiRotation.z = transform.rotation.y;
-
-
     }
     public void ForceUI(int round)
     {
@@ -134,9 +131,9 @@ public class QuickTimeEvent : MonoBehaviour
 
             if (lift.action.WasPerformedThisFrame())
             {
-                //double roundedValue = Math.Round(forcePercentage);
                 StoreForceValue(forcePercentage);
                 qteTween.Kill();
+                anim.Launch();
                 forceGameUI.SetActive(false);
                 yield break;
             }

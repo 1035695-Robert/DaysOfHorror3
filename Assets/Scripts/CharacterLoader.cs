@@ -22,6 +22,7 @@ public class CharacterLoader : MonoBehaviour
 
                 float x = Mathf.Cos(theta) * radius;
                 float z = Mathf.Sin(theta) * radius;
+                
 
                 Vector3 spawnPositions =  new Vector3(z, 1, x);
 

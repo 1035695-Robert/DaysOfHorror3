@@ -21,13 +21,13 @@ public class KillCollision : MonoBehaviour
 
         if (wasPlayer)
         {
+            EventManager.Die.Invoke(hitPLayer);
             if (playerManagerList.playerLists[index].playerName != "Clancy")
             {
                 string killedPlayer = playerManagerList.playerLists[index].playerName;
                 Debug.Log(killedPlayer);
                 endOfGame.EndGameSaveData(killedPlayer, "Parachute");
                 playerManagerList.playerLists.Remove(playerManagerList.playerLists[index]);
-
             }
             else
             {
@@ -35,7 +35,6 @@ public class KillCollision : MonoBehaviour
                 gameOver.GameOverMenu();
             }
         }
-
     }
     public void NoMoreRounds()
     {

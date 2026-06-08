@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public InputManager instance;
+    public static InputManager instance;
     private void Awake()
     {
         if (instance != null && instance != this)

@@ -74,6 +74,7 @@ public class ThrowAim : MonoBehaviour
                 if (dropTime < throwDelay && IsLookingAtTarget(target))
                 {
                     holdObject.Throw();
+                    EventManager.throwing.Invoke(gameObject);
                     ball.layer = LayerMask.NameToLayer("PickUp");
                     manager.isThrowActive = true;
                     movement.LoseBall();
@@ -86,6 +87,7 @@ public class ThrowAim : MonoBehaviour
         }
 
         holdObject.Drop();
+        EventManager.drop.Invoke(gameObject);
         movement.LoseBall();
         movement.StartMoving();
         yield return null;

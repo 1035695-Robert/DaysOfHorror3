@@ -15,6 +15,7 @@ public class MovementAgent : MonoBehaviour
     private float defaultSpeed;
     private float fleeRadius = 10f;
 
+    PlayerAnimation anim;
     private void OnEnable()
     {
         EventManager.flee += StartFlee;
@@ -29,6 +30,7 @@ public class MovementAgent : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<PlayerAnimation>();
         targetObject = GameObject.Find("ball").transform;
         agent = GetComponent<NavMeshAgent>();
         defaultSpeed = agent.speed;
@@ -42,7 +44,10 @@ public class MovementAgent : MonoBehaviour
         if (!hasBall && !isFleeing)
         {
             agent.SetDestination(targetObject.position);
+
         }
+        bool isMoving = agent.velocity.magnitude > 0.1f && agent.remainingDistance > agent.stoppingDistance;
+        anim.MoveAnim(isMoving);
     }
     private void StartFlee()
     {

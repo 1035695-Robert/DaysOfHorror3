@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Ball: {fileID: 0}
-  forceValue: 1
+  forceValue: 1.6
   angle: 90
 --- !u!1 &7664871133420743700
 GameObject:
@@ -554,7 +554,6 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  speed: 250
   forcePercentage: 0
   lift: {fileID: 1211798279734114095, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   inputManager: {fileID: 0}

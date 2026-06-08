@@ -81,6 +81,7 @@ public class DialogueDisplay : MonoBehaviour
             Time.timeScale = 1;
         }
     }
+
     public void StartDialogue(string fileName)
     {
         playerInput.SwitchCurrentActionMap("UI");
@@ -107,7 +108,6 @@ public class DialogueDisplay : MonoBehaviour
 
         dialogueComponent.text = scriptData[index].dialogueLine;
         dialogueComponent.maxVisibleCharacters = 0;
-
 
         dialogueComponent.ForceMeshUpdate();
 

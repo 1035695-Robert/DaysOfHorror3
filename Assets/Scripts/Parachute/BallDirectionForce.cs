@@ -6,7 +6,7 @@ public class BallDirectionForce : MonoBehaviour
 {
     [SerializeField] private GameObject Ball;
     private Rigidbody ballRb;
-    [Range(0,20)]
+    [Range(0,2)]
     [SerializeField]private float forceValue;
 
     public float angle;

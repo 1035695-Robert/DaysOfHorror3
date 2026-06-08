@@ -116,7 +116,7 @@ public class LaunchBall : MonoBehaviour
             else
                 Debug.LogError("error");
         }
-        rb.AddForce(Vector3.up * launchForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * UnityEngine.Random.Range(10f,14f), ForceMode.Impulse);
 
     }
 

@@ -192,6 +192,8 @@ GameObject:
   - component: {fileID: 2580043412356401579}
   - component: {fileID: 4592868781263853368}
   - component: {fileID: 9163871809054774500}
+  - component: {fileID: -7760786230107700196}
+  - component: {fileID: -3992988117676447132}
   m_Layer: 0
   m_Name: Matilda
   m_TagString: Untagged
@@ -350,6 +352,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   healthUI: {fileID: 0}
+--- !u!114 &-7760786230107700196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272584021654652599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c9e7bd205dc8640969c01d32741ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-3992988117676447132
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8272584021654652599}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e15c2c5d5e9cc7c47b101256d10a9f35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9198645937044254756
 GameObject:
   m_ObjectHideFlags: 0

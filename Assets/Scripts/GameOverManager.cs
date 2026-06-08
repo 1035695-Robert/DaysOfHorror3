@@ -5,7 +5,7 @@ using static Interfaces;
 
 public class GameOverManager : MonoBehaviour
 {
-    public GameOverManager instance;
+    public static GameOverManager instance;
     public void Awake()
     {
         if (instance != null && instance != this)

@@ -300,6 +300,8 @@ GameObject:
   - component: {fileID: 7664719254793022382}
   - component: {fileID: 6982326349515823042}
   - component: {fileID: 1751917724103120423}
+  - component: {fileID: 3829221905357928594}
+  - component: {fileID: -1181787257940022802}
   m_Layer: 0
   m_Name: Stuart
   m_TagString: Untagged
@@ -458,6 +460,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   healthUI: {fileID: 0}
+--- !u!114 &3829221905357928594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042893044614460089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c9e7bd205dc8640969c01d32741ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-1181787257940022802
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8042893044614460089}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e15c2c5d5e9cc7c47b101256d10a9f35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8470669978897386957
 PrefabInstance:
   m_ObjectHideFlags: 0

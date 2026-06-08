@@ -1,4 +1,4 @@
-using System;
+    using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,10 +17,13 @@ public class PlayerController : MonoBehaviour
     public bool isToggleActive = false;
     public bool isSprintHolding = false;
 
-    private void Start()
+    private PlayerAnimation anim;
+
+    private void Awake()
     {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<PlayerAnimation>();
     }
     private void OnEnable()
     {
@@ -40,6 +43,9 @@ public class PlayerController : MonoBehaviour
         controller.Move(moveDirection * walkSpeed * Time.fixedDeltaTime);
 
         controller.Move(moveDirection * walkSpeed * Time.fixedDeltaTime);
+        bool AnimInput = (directionInput.x != 0 || directionInput.y != 0);
+        Debug.Log(AnimInput);
+        anim.MoveAnim(AnimInput);
 
         if (moveDirection != Vector3.zero)
         {

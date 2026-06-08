@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -90,9 +91,11 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         GameObject bestTarget = FindRandomPlayer(target);
 
         holdObject.Hold(transform);
+        EventManager.holding.Invoke(target);
+       
 
         if (IsPlayer(target))
-            StartCoroutine(DropCountDown());
+            StartCoroutine(DropCountDown(target));
 
         else
         {
@@ -167,7 +170,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
                 HitTarget(p.playerPrefab);
                 if (isBombActive)
                 {
-                    Explosion(p.playerPrefab);
+                  Explosion(p.playerPrefab);
                 }
             }
         }
@@ -182,7 +185,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
                 HitTarget(p.playerPrefab);
                 if (isBombActive)
                 {
-                    Explosion(p.playerPrefab);
+                   Explosion(p.playerPrefab);
                 }
             }
         }
@@ -195,7 +198,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         else
             return false;
     }
-    public IEnumerator DropCountDown()
+    public IEnumerator DropCountDown(GameObject target)
     {
         playerControls.walkSpeed = 0;
         float dropTime = dropTimeLength;
@@ -205,6 +208,8 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             if (Toss.action.WasPerformedThisFrame())
             {
                 holdObject.Throw();
+                EventManager.throwing.Invoke(target);
+                
                 gameObject.layer = LayerMask.NameToLayer("PickUp");
                 playerControls.walkSpeed = playeyDefaultSpeed;
                 isThrowActive = true;
@@ -213,6 +218,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
             yield return null;
         }
         holdObject.Drop();
+        EventManager.drop.Invoke(target);
         EventManager.ballCheck?.Invoke();
         playerControls.walkSpeed = playeyDefaultSpeed;
         yield return null;
@@ -235,9 +241,6 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         health.BeenHit();
         isThrowActive = false;
         StartCoroutine(WaitTillSlowedDown());
-
-
-
     }
     public void PlayerIsOut(GameObject outPlayer)
     {
@@ -251,16 +254,16 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         EventDialogue dialogue = FindAnyObjectByType<EventDialogue>();
         EventManager.finalShowdown.Invoke();
         dialogue.OnInteract("GagaBall/ShowDown");
-        //time.timescale = 0f;
     }
-    void Explosion(GameObject target)
+     void Explosion(GameObject target)
     {
+       EventManager.Die.Invoke(target);    
 
         Debug.Log("KABOOM");
         if (target.name == playerString)
-        {
+        { 
             GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
-            gameOver.instance.GameOverMenu();
+            gameOver.GameOverMenu();
         }
         else
         {

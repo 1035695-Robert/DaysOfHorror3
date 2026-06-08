@@ -683,6 +683,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2401475781181149254, guid: f08e7a4556aadad45a25cfc92c0d875e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 3480978248681821311, guid: f08e7a4556aadad45a25cfc92c0d875e, type: 3}
       propertyPath: m_Name
       value: Clancy
@@ -1131,7 +1135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quickTimeEvent: {fileID: 0}
-  launchForce: 10
+  launchForce: 15
   isPaused: 0
   playerManagerList: {fileID: 0}
   playerForce:

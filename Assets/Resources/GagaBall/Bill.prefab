@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 4141940437128430316}
   - component: {fileID: 9201884617078595705}
   - component: {fileID: 6450759488513425645}
+  - component: {fileID: -5506725734009099870}
+  - component: {fileID: -8944824097394952643}
   m_Layer: 0
   m_Name: Bill
   m_TagString: Untagged
@@ -239,6 +241,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   healthUI: {fileID: 0}
+--- !u!114 &-5506725734009099870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121522590676576382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c9e7bd205dc8640969c01d32741ea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &-8944824097394952643
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121522590676576382}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e15c2c5d5e9cc7c47b101256d10a9f35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2795038754780601976
 GameObject:
   m_ObjectHideFlags: 0
