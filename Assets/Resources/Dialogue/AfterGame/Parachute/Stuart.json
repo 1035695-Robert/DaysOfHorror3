@@ -1,29 +1,24 @@
 {
-    "data": [
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "How are you holding up?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Stuart",
-            "dialogueLine": "What's it to you?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "CLancy",
-            "dialogueLine": "Just figured I'd ask...",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Stuart",
-            "dialogueLine": "...I'm alright. Thanks.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "No worries.",
-            "textSpeed": 0.1
-        }
-    ]
+  "data": [
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Look. Everyone here, look towards this life that has been snuffed out.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "The fault of this is all of you here.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "If you had seen beyond your own selfish views, then you would’ve seen that you should not have focused on yourself or others.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "We will return to the shed now. You will have plenty of time to learn in the following activities.",
+      "textSpeed": 0.1
+    }
+  ]
 }

@@ -1,49 +1,24 @@
 {
-    "data": [
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "How are you holding up?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Bill",
-            "dialogueLine": "Alright yeah, thanks for asking.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Bill",
-            "dialogueLine": " You did good there with that suggestion. That played a big role in our success there.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "Thank you.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Bill",
-            "dialogueLine": "What do you make of what Oliver said after the game?",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "Like I give a shit what that psycopath is trying to say...",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Bill",
-            "dialogueLine": "Well that's a reasonable response.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Bill",
-            "dialogueLine": "To me it seems he genuinely thinks he's teaching us something. What this though beats me.",
-            "textSpeed": 0.1
-        },
-        {
-            "speakerName": "Clancy",
-            "dialogueLine": "...",
-            "textSpeed": 0.1
-        }
-    ]
+  "data": [
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Look. Everyone here, look towards this life that has been snuffed out.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "The fault of this is all of you here.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "If you had seen beyond your own selfish views, then you would’ve seen that you should not have focused on yourself or others.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "We will return to the shed now. You will have plenty of time to learn in the following activities.",
+      "textSpeed": 0.1
+    }
+  ]
 }

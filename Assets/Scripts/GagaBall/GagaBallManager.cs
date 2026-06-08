@@ -38,7 +38,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     void Start()
     {
         playerManager = FindAnyObjectByType<LivingPlayerManager>();
-        foreach (var p in playerManager.instance.playerLists)
+        foreach (var p in playerManager.playerLists)
         {
             gagaPlayerList.Add(p);
         }
@@ -248,9 +248,9 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     {
         isFinalShowdown = true;
         isBombActive = true;
-        EventDialogue dialogue = gameObject.GetComponent<EventDialogue>();
+        EventDialogue dialogue = FindAnyObjectByType<EventDialogue>();
         EventManager.finalShowdown.Invoke();
-        dialogue.OnInteract();
+        dialogue.OnInteract("GagaBall/ShowDown");
         //time.timescale = 0f;
     }
     void Explosion(GameObject target)
@@ -265,8 +265,9 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         else
         {
             Debug.Log("playerWins");
-           
-            playerManager.instance.playerLists.RemoveAll(player => player.playerPrefab == target);
+            playerManager.playerLists.RemoveAll(player => player.playerPrefab == target);
+            EndOfGameDialogue endGame = FindAnyObjectByType<EndOfGameDialogue>();
+            endGame.EndGameSaveData(target.name, "GagaBall");
         }
 
     }

@@ -11,17 +11,17 @@ public class PlayerList
 }
 public class LivingPlayerManager : MonoBehaviour
 {
-    public LivingPlayerManager instance;
+    public static LivingPlayerManager instance;
     public List<PlayerList> playerLists = new List<PlayerList>();
     public void Awake()
     {
         if (instance != null && instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
         instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
    
 

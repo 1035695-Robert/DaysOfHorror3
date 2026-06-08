@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Well done, you’ve completed the first activity successfully, and moved closer",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Stuart",
+      "dialogueLine": "Truth? <b>What the hell are you on about!?</b> You're trying to kill us!",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Incorrect. Do you not recall what I said a few moments ago?",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Then again, you are here to learn, so it is not like I expect you to have wisdom.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Stuart",
+      "dialogueLine": "You…",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Just as I did, through direct experience, you will gradually learn to see things for as they really are.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Your victory was not a result of any of you. It was a result of all of you.",
+      "textSpeed": 0.1
+    }
+  ]
+}
