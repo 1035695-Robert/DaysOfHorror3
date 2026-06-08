@@ -34,7 +34,7 @@ public class DialogueFiles : MonoBehaviour
         }
         else
         {
-            Debug.Log("Error");
+            Debug.Log("Error " + fileName);
             return new List<DialogueData>();
         }
     }

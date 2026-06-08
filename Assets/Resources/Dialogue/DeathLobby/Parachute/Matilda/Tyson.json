@@ -1,0 +1,39 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "H - How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "I'm doing fine, thank you for asking. How about you?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "Her death has truly troubled you. You really are great friend, to value her life like this.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "However, be heedful, Clancy.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Tyson",
+            "dialogueLine": "Your idea in the Parachute game was great as it was one that benefitted all. So do not lose sight now with the death of one life.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "?...",
+            "textSpeed": 0.1
+        }
+    ]
+}

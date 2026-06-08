@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Interfaces;
 
 public class PlayerFieldOfView : MonoBehaviour
 {
@@ -99,7 +100,7 @@ public class PlayerFieldOfView : MonoBehaviour
                 IInteractable interactable = target.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
-                    interactable.OnInteract();
+                    interactable.OnInteract(gameObject);
                     canSeeObject = false;
                 }
                 
