@@ -1,0 +1,59 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "Well.. I guess it was nice to play The Parachute Game again haha...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Someone died, Ryan",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "RIght... Sorry...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...Again you said?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "You never played The Parachute Game as a kid?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "That was my first time playing it. Your saying that's a kid's game?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "Yeah. I played that as a kid back in preschool.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "Of course, it was a lot more relaxed than this one...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "I guess we can expect the rest of the activities to be based of games we played as children then...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Ryan",
+            "dialogueLine": "Probably yeah...",
+            "textSpeed": 0.1
+        }
+    ]
+}

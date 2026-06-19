@@ -90,11 +90,19 @@ public class QuickTimeEvent : MonoBehaviour
     }
     public void ForceUI(int round)
     {
+        Debug.Log(round + "/ " + (RSL.rsRange.Count - 1));
+        if (round <= RSL.rsRange.Count - 1)
+        {
+            randomSpeed = UnityEngine.Random.Range(RSL.rsRange[round].speedValues.x, RSL.rsRange[round].speedValues.y);
+            Debug.Log("min:" + RSL.rsRange[0].speedValues.x + " Max:" + RSL.rsRange[0].speedValues.y);
+        }
+        else
+        {
+            KillCollision killcol = FindAnyObjectByType<KillCollision>();
+            killcol.NoMoreRounds();
+        }
 
-        randomSpeed = UnityEngine.Random.Range(RSL.rsRange[round].speedValues.x, RSL.rsRange[round].speedValues.y);
-        Debug.Log("min:" + RSL.rsRange[0].speedValues.x + " Max:" + RSL.rsRange[0].speedValues.y);
-
-        Vector3 startPosition = pointA.position;
+            Vector3 startPosition = pointA.position;
         Vector3 endPosition = pointB.position;
 
         pointer.position = startPosition;
@@ -126,8 +134,8 @@ public class QuickTimeEvent : MonoBehaviour
 
             if (lift.action.WasPerformedThisFrame())
             {
-                double roundedValue = Math.Round(forcePercentage, 2);
-                StoreForceValue((float)roundedValue);
+                //double roundedValue = Math.Round(forcePercentage);
+                StoreForceValue(forcePercentage);
                 qteTween.Kill();
                 forceGameUI.SetActive(false);
                 yield break;

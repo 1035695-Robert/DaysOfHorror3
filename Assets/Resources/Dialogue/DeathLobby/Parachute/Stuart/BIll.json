@@ -1,0 +1,49 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Bill",
+            "dialogueLine": "Alright yeah, thanks for asking.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Bill",
+            "dialogueLine": " You did good there with that suggestion. A lot more of us could've died if you hadn't brough that up.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Thanks.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Bill",
+            "dialogueLine": "What do you make of what Oliver said after the game?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "Like I give a shit what that psycopath is trying to say...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Bill",
+            "dialogueLine": "Well that's a reasonable response.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Bill",
+            "dialogueLine": "To me it seems he genuinely thinks he's teaching us something. What this though beats me.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...",
+            "textSpeed": 0.1
+        }
+    ]
+}

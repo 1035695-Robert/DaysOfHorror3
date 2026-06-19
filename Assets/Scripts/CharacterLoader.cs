@@ -42,6 +42,7 @@ public class CharacterLoader : MonoBehaviour
                     if (playerManager.playerLists[p].playerPrefab != null)
                     {
                         GameObject player = Instantiate(playerManager.playerLists[p].playerPrefab, spawnPositions, Quaternion.identity);
+                        player.name = playerManager.playerLists[p].playerName;
                         player.transform.LookAt(new Vector3(0, 1, 0));
                         player.name.Replace("(Clone)", "").Trim();
                         playerManager.playerLists[p].playerPrefab = player;
