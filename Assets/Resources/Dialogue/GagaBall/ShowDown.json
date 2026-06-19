@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Your value to each other is what has brought you here.",
+      "textSpeed": 0.3
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Those who are out... are safe. All that is left is to complete the result of your actions.",
+      "textSpeed": 0.1
+    }
+  ]
+}

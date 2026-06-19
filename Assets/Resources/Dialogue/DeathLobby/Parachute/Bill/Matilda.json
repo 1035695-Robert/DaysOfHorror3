@@ -1,0 +1,54 @@
+{
+    "data": [
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "How are you holding up?",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": " As alright as I can after seeing someone die in front of me I guess!...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "You're not the only one who had to see that you know.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": " Right, sorry... ",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Thank you for taking that role during the game. I feel like a lot more of us would've died if you hadn't suggested doing that in the first place.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Those screams... I can't get them out of my head...",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": " Right... thank you.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": " Right... thank you.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Clancy",
+            "dialogueLine": "...Whatever happens, let's stick together, okay? Your my closest friend, and I don't want to lose you.",
+            "textSpeed": 0.1
+        },
+        {
+            "speakerName": "Matilda",
+            "dialogueLine": "Yeah... I like the sound of that too.",
+            "textSpeed": 0.1
+        }
+    ]
+}

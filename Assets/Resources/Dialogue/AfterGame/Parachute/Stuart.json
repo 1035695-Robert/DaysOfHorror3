@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "Look. Everyone here, look towards this life that has been snuffed out.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "The fault of this is all of you here.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "If you had seen beyond your own selfish views, then you would’ve seen that you should not have focused on yourself or others.",
+      "textSpeed": 0.1
+    },
+    {
+      "speakerName": "Dr Oliver",
+      "dialogueLine": "We will return to the shed now. You will have plenty of time to learn in the following activities.",
+      "textSpeed": 0.1
+    }
+  ]
+}
