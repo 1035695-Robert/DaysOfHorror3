@@ -42,7 +42,7 @@ public class Health : MonoBehaviour
             if (gameObject.name == "player")
             {
                 GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
-                gameOver.GameOverMenu();
+                gameOver.GameOverMenu("Lose");
             }
         }
     }

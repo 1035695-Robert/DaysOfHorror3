@@ -260,7 +260,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         if (target.name == playerString)
         {
             GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
-            gameOver.instance.GameOverMenu();
+            gameOver.instance.GameOverMenu("Lose");
         }
         else
         {
