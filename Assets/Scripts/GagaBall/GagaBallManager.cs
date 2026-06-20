@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -121,7 +122,7 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
         if (targetable.Count <= 1f && !isFinalShowdown)
         {
-            ActivateBombBall();
+            //ActivateBombBall();
         }
         else
         {
@@ -242,6 +243,12 @@ public class GagaBallManager : MonoBehaviour, IInteractable
     public void PlayerIsOut(GameObject outPlayer)
     {
         gagaPlayerList.RemoveAll(knockOut => knockOut.playerPrefab == outPlayer);
+
+        if (gagaPlayerList.Count <= 1 && gagaPlayerList[0].playerName == playerString)
+        {
+            GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
+            gameOver.instance.GameOverMenu("Win");
+        }
     }
 
     void ActivateBombBall()
@@ -266,8 +273,10 @@ public class GagaBallManager : MonoBehaviour, IInteractable
         {
             Debug.Log("playerWins");
             playerManager.playerLists.RemoveAll(player => player.playerPrefab == target);
-            EndOfGameDialogue endGame = FindAnyObjectByType<EndOfGameDialogue>();
-            endGame.EndGameSaveData(target.name, "GagaBall");
+            //EndOfGameDialogue endGame = FindAnyObjectByType<EndOfGameDialogue>();
+            //endGame.EndGameSaveData(target.name, "GagaBall");
+            GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
+            gameOver.instance.GameOverMenu("Win");
         }
 
     }
