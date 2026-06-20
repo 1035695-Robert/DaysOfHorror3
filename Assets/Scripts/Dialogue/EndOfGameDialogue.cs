@@ -23,6 +23,7 @@ public class EndOfGameDialogue : MonoBehaviour
         
         StartCoroutine(AfterGameDialogue());
     }
+
     IEnumerator AfterGameDialogue()
     {
         yield return new WaitForSeconds(3f);

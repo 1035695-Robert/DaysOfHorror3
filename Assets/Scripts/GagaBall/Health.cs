@@ -39,10 +39,10 @@ public class Health : MonoBehaviour
             manager.PlayerIsOut(gameObject);
             gameObject.SetActive(false);
             
-            if (gameObject.name == "player")
+            if (gameObject.CompareTag("Player") == true)
             {
                 GameOverManager gameOver = GameObject.Find("GameOver").GetComponent<GameOverManager>();
-                gameOver.GameOverMenu();
+                gameOver.GameOverMenu("Lose");
             }
         }
     }

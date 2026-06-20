@@ -13,7 +13,7 @@ namespace GJAM5.Menu
 
         [Header("Variables")]
 
-        [SerializeField] private string _sceneName;
+        [SerializeField] protected string _sceneName;
 
         [Header("Classes")]
 
@@ -28,7 +28,7 @@ namespace GJAM5.Menu
             await loader.OnAsyncLoadScene(_sceneName);
         }
 
-        private void InitialiseScript()
+        protected void InitialiseScript()
         {
             loader = new SceneLoaderManager();
         }
@@ -38,7 +38,7 @@ namespace GJAM5.Menu
         #region Unity Methods
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        protected void Start()
         {
             InitialiseScript();
         }

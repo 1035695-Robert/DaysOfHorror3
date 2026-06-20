@@ -20,4 +20,10 @@ public class SceneLoaderManager
             await Task.Yield();
         }
     }
+
+    // Used when restarting game from the game over menu
+    public void ReloadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 }
