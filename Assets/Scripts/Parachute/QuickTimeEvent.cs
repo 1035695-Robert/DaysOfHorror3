@@ -45,9 +45,11 @@ public class QuickTimeEvent : MonoBehaviour
     {
         EventManager.tossRound += ForceUI;
         lift.action.Enable();
+        Canvas.ForceUpdateCanvases();
     }
     private void OnDisable()
     {
+        EventManager.tossRound -= ForceUI; // Make sure events are unsubbed ondisable for GaGa Ball too
         lift.action.Disable();
     }
 
@@ -102,7 +104,7 @@ public class QuickTimeEvent : MonoBehaviour
             killcol.NoMoreRounds();
         }
 
-            Vector3 startPosition = pointA.position;
+        Vector3 startPosition = pointA.position;
         Vector3 endPosition = pointB.position;
 
         pointer.position = startPosition;
