@@ -36,6 +36,8 @@ public class LaunchBall : MonoBehaviour
     public Vector3 rollBack = new Vector3(0, 0.5f, 0);
     public int roundIndex;
 
+    [SerializeField] private Animator animator;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -78,6 +80,7 @@ public class LaunchBall : MonoBehaviour
     public void Launch()
     {
         Debug.Log("YEET");
+        animator.SetBool("hasThrownUp", true);
         weakestPlayer.Clear();
         for (int p = 0; p < playerForce.Count; p++)
         {
@@ -117,12 +120,11 @@ public class LaunchBall : MonoBehaviour
                 Debug.LogError("error");
         }
         rb.AddForce(Vector3.up * launchForce, ForceMode.Impulse);
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "ground")
+        if (collision.transform.name == "ParachuteMesh") // originally "ground"
         {
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
@@ -137,10 +139,8 @@ public class LaunchBall : MonoBehaviour
         {
             rb.angularVelocity = Vector3.zero;
             rb.linearVelocity = Vector3.zero;
+            animator.SetBool("hasThrownUp", false);
             StartCoroutine(LaunchCheck());
         }
     }
 }
-
-
-
