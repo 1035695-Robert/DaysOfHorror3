@@ -1,4 +1,5 @@
 
+using GJAM5.SoundEffects;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEditor.Rendering;
@@ -30,6 +31,8 @@ public class Health : MonoBehaviour
     }
     public void BeenHit()
     {
+        GagaBallSoundPlayer.instance.PlaySFXClipAt("Hit", transform.position, 1, false);
+
         health--;
         healthUI.text = health.ToString();
        

@@ -1,3 +1,4 @@
+using GJAM5.SoundEffects;
 using System.Collections;
 using Unity.Cinemachine.Editor;
 using Unity.VisualScripting;
@@ -26,11 +27,12 @@ public class HoldObject : MonoBehaviour
             heldObject.layer = LayerMask.NameToLayer("PickUp");
 
             heldObjectRB = heldObject.GetComponent<Rigidbody>();
+            heldObjectRB.angularVelocity = Vector3.zero;
             heldObjectRB.useGravity = false;
             heldObjectRB.linearDamping = 10;
             heldObjectRB.constraints = RigidbodyConstraints.FreezeRotation;
 
-            holdArea.transform.localPosition = new Vector3(0, 0, 0f);
+            //holdArea.transform.localPosition = new Vector3(0, 0, 0f);
             heldObjectRB.transform.parent = holdArea;
             heldObject.transform.localPosition = new Vector3(0, 0, 0f);
             heldObject.transform.localRotation = Quaternion.identity;
@@ -54,6 +56,8 @@ public class HoldObject : MonoBehaviour
 
     public void Throw()
     {
+        GagaBallSoundPlayer.instance.PlaySFXClipAt("Throw", transform.position, 1, false);
+
         Debug.Log("Thrown by " + heldObject.transform.parent.name);
         heldObjectRB.useGravity = true;
         heldObjectRB.linearDamping = 1;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GJAM5.SoundEffects;
 
 using static Interfaces;
 
@@ -81,6 +82,8 @@ public class GagaBallManager : MonoBehaviour, IInteractable
 
     public void OnInteract(GameObject target)
     {
+        GagaBallSoundPlayer.instance.PlaySFXClipAt("PickUp", target.transform.position, 1, false);
+
         StopAllCoroutines();
 
         transform.GetComponent<Renderer>().material.color = Color.white;
