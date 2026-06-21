@@ -17,10 +17,16 @@ public class PlayerController : MonoBehaviour
     public bool isToggleActive = false;
     public bool isSprintHolding = false;
 
+    private HoldObject holdObject;
+
+    private Animator animator;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
+        holdObject = GetComponent<HoldObject>();
+        animator = GetComponentInChildren<Animator>();
     }
     private void OnEnable()
     {
@@ -45,6 +51,15 @@ public class PlayerController : MonoBehaviour
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+
+            if (holdObject.heldObject == null)
+            {
+                animator.SetBool("isMoving", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
         }
     }
 }
