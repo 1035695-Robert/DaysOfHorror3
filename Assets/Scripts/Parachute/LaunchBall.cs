@@ -1,3 +1,4 @@
+using GJAM5.SoundEffects;
 using NUnit.Framework;
 using System;
 using System.Collections;
@@ -81,6 +82,7 @@ public class LaunchBall : MonoBehaviour
     {
         Debug.Log("YEET");
         animator.SetBool("hasThrownUp", true);
+        ParachuteSoundPlayer.instance.PlaySFXClipAt("FabricFlap", transform.position, 1, false);
         weakestPlayer.Clear();
         for (int p = 0; p < playerForce.Count; p++)
         {

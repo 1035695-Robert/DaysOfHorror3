@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using JetBrains.Annotations;
 using DG.Tweening;
 using UnityEditor;
+using GJAM5.SoundEffects;
 
 
 
@@ -92,6 +93,8 @@ public class QuickTimeEvent : MonoBehaviour
     }
     public void ForceUI(int round)
     {
+        ParachuteSoundPlayer.instance.PlaySFXClipAt("AffirmativeNotification", transform.position, 0.1f, false);
+
         Debug.Log(round + "/ " + (RSL.rsRange.Count - 1));
         if (round <= RSL.rsRange.Count - 1)
         {

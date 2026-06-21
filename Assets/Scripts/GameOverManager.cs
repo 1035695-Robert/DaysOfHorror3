@@ -1,3 +1,4 @@
+using GJAM5.SoundEffects;
 using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -9,7 +10,10 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverMenuScreen;
     [SerializeField] private TextMeshProUGUI _headerText;
 
+    [SerializeField] private SoundPlayer soundPlayer;
+
     public GameOverManager instance;
+
     public void Awake()
     {
         if (instance != null && instance != this)
@@ -31,6 +35,7 @@ public class GameOverManager : MonoBehaviour
     {
         _gameOverMenuScreen = GameObject.Find("GameOverMenu");
         _headerText = _gameOverMenuScreen.transform.GetComponentInChildren<TextMeshProUGUI>();
+        soundPlayer = _gameOverMenuScreen.transform.GetComponent<GameSoundPlayer>();
         _gameOverMenuScreen.SetActive(false);
 
         Time.timeScale = 1f; // Reset time to normal after reloading again up restarting
@@ -47,9 +52,11 @@ public class GameOverManager : MonoBehaviour
         {
             case "Win":
                 _headerText.text = "You have proven yourself.";
+                soundPlayer.PlaySFXClipAt("HighPitchDrone", transform.position, 0.5f, false);
                 break;
             case "Lose":
                 _headerText.text = "You have failed.";
+                soundPlayer.PlaySFXClipAt("LowPitchDrone", transform.position, 0.5f, false);
                 break;
         }
 
