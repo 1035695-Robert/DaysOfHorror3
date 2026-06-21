@@ -33,7 +33,7 @@ public class ThrowAim : MonoBehaviour
 
     public float throwDelay = 1;
 
-   
+    private Animator animator;
 
     private void Start()
     {
@@ -42,6 +42,7 @@ public class ThrowAim : MonoBehaviour
         holdObject = GetComponent<HoldObject>();
         movement = GetComponent<MovementAgent>();
         manager = ball.GetComponent<GagaBallManager>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnCollisionStay(Collision collision)
@@ -58,6 +59,8 @@ public class ThrowAim : MonoBehaviour
     {
         float dropTime = timeLength;
         movement.StopMoving();
+
+        animator.SetBool("hasBall", true);
 
         while (dropTime > 0)
         {

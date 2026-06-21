@@ -15,6 +15,8 @@ public class MovementAgent : MonoBehaviour
     private float defaultSpeed;
     private float fleeRadius = 10f;
 
+    private Animator animator;
+
     private void OnEnable()
     {
         EventManager.flee += StartFlee;
@@ -32,6 +34,7 @@ public class MovementAgent : MonoBehaviour
         targetObject = GameObject.Find("ball").transform;
         agent = GetComponent<NavMeshAgent>();
         defaultSpeed = agent.speed;
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void FixedUpdate()
@@ -41,6 +44,8 @@ public class MovementAgent : MonoBehaviour
 
         if (!hasBall && !isFleeing)
         {
+            animator.SetBool("isMoving", true);
+
             agent.SetDestination(targetObject.position);
         }
     }
@@ -54,6 +59,8 @@ public class MovementAgent : MonoBehaviour
         Debug.Log("i will run Away");
         while (isFleeing)
         {
+            animator.SetBool("isMoving", true);
+
             float distance = Vector3.Distance(transform.position, targetObject.position);
 
             if (distance < fleeRadius)
@@ -68,12 +75,15 @@ public class MovementAgent : MonoBehaviour
 
             yield return null;
         }
+
+        //animator.SetBool("isMoving", false);
         yield break;
     }
 
     public void HasBall()
     {
         Debug.Log("HAHAHA i have the ball!!");
+        animator.SetBool("hasBall", true);
         EventManager.flee -= StartFlee;
     }
     public void LoseBall()
@@ -88,12 +98,14 @@ public class MovementAgent : MonoBehaviour
 
     public void StopMoving()
     {
+        animator.SetBool("isMoving", false);
         agent.speed = 0f;
         hasBall = true;
         agent.ResetPath();
     }
     public void StartMoving()
     {
+        animator.SetBool("isMoving", true);
         agent.speed = defaultSpeed;
         hasBall = false;
     }

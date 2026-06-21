@@ -1046,6 +1046,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2818558522433899337, guid: f08e7a4556aadad45a25cfc92c0d875e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 75e3c00c386d14c4fa23764b21620b51, type: 2}
     - target: {fileID: 3480978248681821311, guid: f08e7a4556aadad45a25cfc92c0d875e, type: 3}
       propertyPath: m_Name
       value: Clancy

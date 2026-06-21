@@ -8,11 +8,15 @@ public class HoldObject : MonoBehaviour
 {
     [Header("PickUp settings")]
     [SerializeField] Transform holdArea;
+    [SerializeField] Transform throwArea;
     [SerializeField] public GameObject heldObject;
     [SerializeField] private Rigidbody heldObjectRB;
 
     [Header("Throwing")]
     [SerializeField] private float forceAmount = 500f;
+
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
 
     public void Hold(Transform targetObject)
     {
@@ -26,9 +30,13 @@ public class HoldObject : MonoBehaviour
             heldObjectRB.linearDamping = 10;
             heldObjectRB.constraints = RigidbodyConstraints.FreezeRotation;
 
+            holdArea.transform.localPosition = new Vector3(0, 0, 0f);
             heldObjectRB.transform.parent = holdArea;
-            heldObject.transform.localPosition = new Vector3(0, 0, 1f);
+            heldObject.transform.localPosition = new Vector3(0, 0, 0f);
             heldObject.transform.localRotation = Quaternion.identity;
+
+            animator.SetBool("hasBall", true);
+            animator.SetBool("isMoving", false);
         }
     }
 
@@ -50,11 +58,23 @@ public class HoldObject : MonoBehaviour
         heldObjectRB.useGravity = true;
         heldObjectRB.linearDamping = 1;
         heldObjectRB.constraints = RigidbodyConstraints.None;
+
+        heldObjectRB.transform.parent = throwArea;
+        heldObject.transform.localPosition = new Vector3(0, 0, 1f);
+        heldObject.transform.localRotation = Quaternion.identity;
         heldObjectRB.transform.parent = null;
 
         heldObject.layer = LayerMask.NameToLayer("Interactables");
         heldObjectRB.AddForce(transform.forward * forceAmount, ForceMode.Impulse);
         heldObject = null;
+
+        animator.SetBool("hasBall", false);
+        animator.SetBool("throwingBall", true);
+    }
+
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
     }
 
 }
