@@ -46,10 +46,10 @@ public class GameOverManager : MonoBehaviour
         switch (victoryCondition)
         {
             case "Win":
-                _headerText.text = "You won? VICTORY!!";
+                _headerText.text = "You have proven yourself.";
                 break;
             case "Lose":
-                _headerText.text = "Idiot! You LOST!";
+                _headerText.text = "You have failed.";
                 break;
         }
 
