@@ -52,11 +52,11 @@ public class GameOverManager : MonoBehaviour
         {
             case "Win":
                 _headerText.text = "You have proven yourself.";
-                soundPlayer.PlaySFXClipAt("HighPitchDrone", transform.position, 0.5f, false);
+                soundPlayer.PlaySFXClipAt("HighPitchDrone", transform.position, 0.1f, false);
                 break;
             case "Lose":
                 _headerText.text = "You have failed.";
-                soundPlayer.PlaySFXClipAt("LowPitchDrone", transform.position, 0.5f, false);
+                soundPlayer.PlaySFXClipAt("LowPitchDrone", transform.position, 0.1f, false);
                 break;
         }
 

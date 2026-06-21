@@ -25344,16 +25344,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rsRange:
-  - speedValues: {x: 0.1, y: 0.2}
-  - speedValues: {x: 0.1, y: 0.3}
-  - speedValues: {x: 0.3, y: 0.7}
-  - speedValues: {x: 0.3, y: 0.8}
-  - speedValues: {x: 0.4, y: 0.9}
-  - speedValues: {x: 0.4, y: 0.9}
-  - speedValues: {x: 0.5, y: 1}
-  - speedValues: {x: 0.8, y: 1.5}
-  - speedValues: {x: 1, y: 2}
-  - speedValues: {x: 5, y: 10}
+  - speedValues: {x: 0.1, y: 1}
+  - speedValues: {x: 0.1, y: 2}
+  - speedValues: {x: 1, y: 5}
+  - speedValues: {x: 1, y: 6}
+  - speedValues: {x: 1, y: 7}
+  - speedValues: {x: 1, y: 8}
+  - speedValues: {x: 1, y: 8.5}
+  - speedValues: {x: 1, y: 9}
+  - speedValues: {x: 1, y: 9.5}
+  - speedValues: {x: 1, y: 10}
 --- !u!4 &974142147
 Transform:
   m_ObjectHideFlags: 0
@@ -25519,9 +25519,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 975124653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6de9deebe5042264382046d278e9c179, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e255b4dd6fe1aa40a73143f9e9c91cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ball: {fileID: 975124653}
+  forceValue: 10.1
+  angle: 0
 --- !u!114 &975124661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25535,7 +25538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quickTimeEvent: {fileID: 0}
-  launchForce: 16.5
+  launchForce: 15
   isPaused: 0
   playerManagerList: {fileID: 0}
   playerForce:
@@ -25552,7 +25555,7 @@ MonoBehaviour:
   - player: {fileID: 0}
     forceValue: 0
   weakestPlayer: []
-  directions: {fileID: 0}
+  directions: {fileID: 975124660}
   rollBack: {x: 0, y: 0.5, z: 0}
   roundIndex: 0
   animator: {fileID: 557149228}
