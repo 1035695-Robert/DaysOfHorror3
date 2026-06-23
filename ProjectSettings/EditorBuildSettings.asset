@@ -9,14 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/FeatureTests/Menu.unity
+    guid: d2ed008b6d095bb4eb7f32a01b91deb1
+  - enabled: 1
     path: Assets/Scenes/FeatureTests/GagaBall.unity
     guid: c0adb8759bd7483438b918e816683bda
   - enabled: 1
-    path: Assets/Scenes/FeatureTests/Lobby.unity
-    guid: 5823945ec8f4dd54db06a3ce2d7fdcb8
-  - enabled: 1
     path: Assets/Scenes/FeatureTests/Parachute.unity
     guid: e8413e3314e379b4680cdadee3dba351
+  - enabled: 0
+    path: Assets/Scenes/FeatureTests/Lobby.unity
+    guid: 5823945ec8f4dd54db06a3ce2d7fdcb8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 16a86f40aeb5c3d4e8f5012f71e3555a, type: 3}
   m_UseUCBPForAssetBundles: 0

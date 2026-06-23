@@ -1,8 +1,8 @@
 
 using GJAM5.SoundEffects;
 using TMPro;
-using TMPro.EditorUtilities;
-using UnityEditor.Rendering;
+//using TMPro.EditorUtilities;
+//using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Health : MonoBehaviour

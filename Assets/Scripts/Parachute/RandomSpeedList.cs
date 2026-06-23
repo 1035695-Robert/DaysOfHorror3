@@ -2,12 +2,12 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEditor;
 
 [Serializable]
 public class RangeValues
 {
-    [VectorLabels("Min", "Max")]
+    //[VectorLabelsAttribute("Min", "Max")]
     public Vector2 speedValues;
 }
 
